@@ -16,13 +16,17 @@ convert_amount <- function(value, old.unit, new.unit) {
   factor.detect <- \(x) 1E-12 ^ str_count(x, "皮") *
     1E-6 ^ str_count(x, "微") *
     1E-3 ^ str_count(x, "毫") *
+    1E-2 ^ str_count(x, "厘") *
+    1E-1 ^ str_count(x, "分") *
     1E2 ^ str_count(x, "百") *
-    1E3 ^ str_count(x, "千|k") *
+    1E3 ^ str_count(x, "千|k|公里|公斤") *
     1E4 ^ str_count(x, "万") *
+    1E6 ^ str_count(x, "兆|M|吨") *
     1E8 ^ str_count(x, "亿") *
-    1E6 ^ str_count(x, "兆|M") *
     1E9 ^ str_count(x, "吉|G") *
-    1E12 ^ str_count(x, "太|T")
+    1E12 ^ str_count(x, "太|T") ^
+    if_else(str_detect(x, "平方"), 2, 1) ^
+    if_else(str_detect(x, "立方"), 3, 1)
 
   return(value * factor.detect(old.unit) / factor.detect(new.unit))
 }

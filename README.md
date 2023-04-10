@@ -72,11 +72,17 @@ larger_bbox(mapchina::china, precise = 0.1) %>%
 `simple_date()` is to acquire a abbreviation of the date.
 
 ``` r
-
 simple_date()
 #> [1] "230411"
 simple_date(as.Date("2023-09-09"))
 #> [1] "230909"
+simple_date("2025-12-28")
+#> Warning in simple_date("2025-12-28"): `simple_date()` only accepts `Date` formate.
+#>   Do you mean `simple_adte(as.Date('2025-12-28'))`?
+
+# useful when generating filenames
+str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
+#> ./this_is_the_filename_with_creating_date_230411.R
 ```
 
 ### `convert_amount()`
@@ -87,6 +93,12 @@ Chinese quantifiers
 ``` r
 convert_amount(66, "兆瓦", "万千瓦")
 #> [1] 6.6
+
+convert_amount(1.7, "米", "毫米")
+#> [1] 1700
+
+convert_amount(9600000, "平方公里", "平方米")
+#> [1] 9600000
 ```
 
 ### `convert_coord()`
@@ -114,7 +126,7 @@ Note that average `O3` concentration for one day is presented by maximum
 ``` r
 C <- rnorm(24, 35, 5)
 DaliyMeanConc("PM2.5", C)
-#> [1] 34.44957
+#> [1] 34.77433
 ```
 
 ### `IAQI_hourly()`
@@ -160,8 +172,8 @@ Calc_Daily_AQI(SO2 = 55, NO2 = 23, CO = 12, O3 = 122, PM2.5 = 35, PM10 = 55)
 ### A sample workflow with AQI series functions in `tidyr` syntax.
 
 ``` r
-library(tidyverse)
 # generating sample data
+
 set.seed(3594)
 
 sampleConc <- data.frame(
@@ -207,7 +219,7 @@ sampleConc
 sampleConc %>% 
   pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>% rowwise() %>% 
   mutate(IAQI_h = IAQI_hourly(Pollu = Pollu, Conc = Conc)) %>% select(-Conc) %>% 
-  unnest(IAQI_h) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
+  pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
 #> Warning: There were 48 warnings in `mutate()`.
 #> The first warning was:
 #> ℹ In argument: `IAQI_h = IAQI_hourly(Pollu = Pollu, Conc = Conc)`.
@@ -218,16 +230,16 @@ sampleConc %>%
 #> # A tibble: 24 × 7
 #>     Time   SO2   NO2    O3    CO PM2.5  PM10
 #>    <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1     0  68.9  153.  8.38  144.    NA    NA
-#>  2     1  72.7  168. 20.6   148.    NA    NA
-#>  3     2  71.0  159.  9.84  121.    NA    NA
-#>  4     3  73.3  174. 14.3   155.    NA    NA
-#>  5     4  70.3  163. 17.6   157.    NA    NA
-#>  6     5  74.1  162. 18.1   127.    NA    NA
-#>  7     6  69.3  170. 21.6   125.    NA    NA
-#>  8     7  70.8  158. 19.6   163.    NA    NA
-#>  9     8  73.6  166. 20.8   142.    NA    NA
-#> 10     9  74.4  148. 12.3   137.    NA    NA
+#>  1     0  68.9  153.  8.38  144.   Inf   Inf
+#>  2     1  72.7  168. 20.6   148.   Inf   Inf
+#>  3     2  71.0  159.  9.84  121.   Inf   Inf
+#>  4     3  73.3  174. 14.3   155.   Inf   Inf
+#>  5     4  70.3  163. 17.6   157.   Inf   Inf
+#>  6     5  74.1  162. 18.1   127.   Inf   Inf
+#>  7     6  69.3  170. 21.6   125.   Inf   Inf
+#>  8     7  70.8  158. 19.6   163.   Inf   Inf
+#>  9     8  73.6  166. 20.8   142.   Inf   Inf
+#> 10     9  74.4  148. 12.3   137.   Inf   Inf
 #> # ℹ 14 more rows
 
 sampleConc %>% rowwise() %>% mutate(
@@ -251,7 +263,6 @@ sampleConc %>% rowwise() %>% mutate(
 ```
 
 ``` r
-
 ## Calculate Daily Concentration and daily AQI
 
 sampleConc_daily_mean <- sampleConc %>% select(-Time) %>% 
@@ -264,9 +275,7 @@ sampleConc_daily_mean
 sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
 #>       SO2       NO2        O3        CO     PM2.5      PM10 
 #> 123.34128 445.26381  30.50926 232.81773 252.31781 185.84479
-```
 
-``` r
 Calc_Daily_AQI(SO2 = sampleConc_daily_mean[["SO2"]],
                NO2 = sampleConc_daily_mean[["NO2"]],
                CO = sampleConc_daily_mean[["CO"]],

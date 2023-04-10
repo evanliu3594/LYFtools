@@ -6,10 +6,11 @@ Author: Yifan LIU
 Maintainer: Yifan LIU <yifan.liu@smail.nju.edu.cn>
 Description: Convert geocoding coordinate system, convert between quantifiers, calculate AQI, etc
 Imports:
-        tidyverse,
-        sf,
-        zoo
-License: GPL-3
+    tidyverse,
+    sf,
+    zoo,
+    magrittr
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.2.3

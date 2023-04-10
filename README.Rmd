@@ -47,16 +47,17 @@ sf::st_bbox(mapchina::china) %>%
 
 larger_bbox(mapchina::china, precise = 0.1) %>% 
   stars::st_as_stars(dx = 0.1, dy = 0.1)
-
 ```
 
 ### `simple_date()`
 `simple_date()` is to acquire a abbreviation of the date.
 ```{r}
-
 simple_date()
 simple_date(as.Date("2023-09-09"))
+simple_date("2025-12-28")
 
+# useful when generating filenames
+str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
 ```
 
 ### `convert_amount()`
@@ -64,6 +65,10 @@ simple_date(as.Date("2023-09-09"))
 
 ```{r}
 convert_amount(66, "兆瓦", "万千瓦")
+
+convert_amount(1.7, "米", "毫米")
+
+convert_amount(9600000, "平方公里", "平方米")
 ```
 
 ### `convert_coord()`
@@ -96,7 +101,6 @@ IAQI_hourly("O3", 142)
 
 ```{r}
 Calc_Hourly_AQI(SO2 = 300,NO2 = 200,CO = 100,O3 = 120)
-
 ```
 
 ### `IAQI_Daily()`
@@ -116,8 +120,8 @@ Calc_Daily_AQI(SO2 = 55, NO2 = 23, CO = 12, O3 = 122, PM2.5 = 35, PM10 = 55)
 ### A sample workflow with AQI series functions in `tidyr` syntax.
 
 ```{r}
-library(tidyverse)
 # generating sample data
+
 set.seed(3594)
 
 sampleConc <- data.frame(
@@ -138,14 +142,13 @@ sampleConc
 sampleConc %>% 
   pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>% rowwise() %>% 
   mutate(IAQI_h = IAQI_hourly(Pollu = Pollu, Conc = Conc)) %>% select(-Conc) %>% 
-  unnest(IAQI_h) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
+  pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
 
 sampleConc %>% rowwise() %>% mutate(
   AQI_h = Calc_Hourly_AQI(SO2 = SO2, NO2 = NO2,CO = CO,O3 = O3), .keep = 'none'
 )
 ```
 ```{r}
-
 ## Calculate Daily Concentration and daily AQI
 
 sampleConc_daily_mean <- sampleConc %>% select(-Time) %>% 
@@ -154,13 +157,11 @@ sampleConc_daily_mean <- sampleConc %>% select(-Time) %>%
 sampleConc_daily_mean
 
 sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
-```
-```{r}
+
 Calc_Daily_AQI(SO2 = sampleConc_daily_mean[["SO2"]],
                NO2 = sampleConc_daily_mean[["NO2"]],
                CO = sampleConc_daily_mean[["CO"]],
                PM10 = sampleConc_daily_mean[["PM10"]],
                PM2.5 = sampleConc_daily_mean[["PM2.5"]],
                O3 = sampleConc_daily_mean[["O3"]])
-
 ```
