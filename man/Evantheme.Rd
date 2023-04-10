@@ -2,16 +2,16 @@
 % Please edit documentation in R/Evan_ggtheme.R
 \name{Evantheme}
 \alias{Evantheme}
-\title{My ggplot2 theme for scitific use}
+\title{My ggplot2 theme for scientific plotting use}
 \usage{
 Evantheme()
 }
 \value{
-a theme object
+a ggplot theme object
 }
 \description{
-My ggplot2 theme for scitific use
+My ggplot2 theme for scientific plotting use
 }
 \examples{
-ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + Evantheme()
+ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + stat_smooth() + Evantheme()
 }

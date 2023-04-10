@@ -19,5 +19,5 @@ get a more suitable bounding box of a sf/sfc object according to the precising f
 }
 \examples{
 sf::st_bbox(mapchina::china)
-larger_bbox(mapchina::china, percise = 0.1)
+larger_bbox(mapchina::china, precise = 0.25)
 }

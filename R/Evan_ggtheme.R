@@ -1,12 +1,15 @@
-#' My ggplot2 theme for scitific use
+#' My ggplot2 theme for scientific plotting use
 #'
-#' @return a theme object
+#' @return a ggplot theme object
 #' @import ggplot2
 #' @export
 #'
 #' @examples
-#' ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + Evantheme()
+#' ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + stat_smooth() + Evantheme()
 Evantheme <- function() {
+
+  windowsFonts(Calibri = windowsFont("Calibri"))
+
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -27,7 +30,7 @@ Evantheme <- function() {
       size = 12,
       face = "bold"
     ),
-    axis.ticks = element_line(colour = "black", size = 0.6),
+    axis.ticks = element_line(colour = "black", linewidth = 0.6),
     axis.line = element_line(colour = "black", linewidth = 0.75),
     axis.text = element_text(
       family = "Calibri",
@@ -42,5 +45,5 @@ Evantheme <- function() {
       hjust = 0.5,
       vjust = 5
     )
-  )
+  ) %>% return()
 }

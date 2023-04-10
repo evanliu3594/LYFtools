@@ -24,33 +24,31 @@ simple_date <- function(x = NULL) {
 #'
 #' @return a sf-bbox object
 #' @importFrom magrittr %>%
+#' @importFrom stringr str_detect
+#' @importFrom purrr imap_dbl
+#' @importFrom sf st_bbox
+#' @importFrom sf st_crs
 #' @export
 #'
 #' @examples
 #' sf::st_bbox(mapchina::china)
-#' larger_bbox(mapchina::china, percise = 0.1)
+#' larger_bbox(mapchina::china, precise = 0.25)
 larger_bbox <- function(x, precise = 0.25) {
 
-  bbox <- sf::st_bbox(x)
-
-  d <- floor(-1 * log10(precise))
+  bbox <- st_bbox(x)
 
   bbox %>% imap_dbl( ~ {
 
-    a <- round(.x, digits = d)
+    a <- floor(.x)
 
-    if (str_detect(.y, "min") & a > .x) {
-      while(a > .x) {a = a - precise}
-    } else if (str_detect(.y, "min") & a < .x - precise) {
-      while(a < .x - percise) {a = a + precise}
-    } else if (str_detect(.y, "max") & a < .x) {
+    if (str_detect(.y, "min")) {
+      while(a < .x - precise) {a = a + precise}
+    } else if (str_detect(.y, "max")) {
       while(a < .x) {a = a + precise}
-    } else if (str_detect(.y, "max") & a > .x + precise) {
-      while(a > .x + precise) {a = a - precise}
     }
 
     return(a)
 
-  }) %>% sf::st_bbox()
+  }) %>% st_bbox(crs = st_crs(x))
 
 }
