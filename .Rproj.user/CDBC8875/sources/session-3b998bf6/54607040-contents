@@ -4,6 +4,7 @@
 #' @param Conc a 24-long vector of hourly average concentrations
 #'
 #' @return a number of daily mean concentration of 6 pollutants in which `O3` is calculated by maximum 8-hour average
+#' @importFrom zoo rollapply
 #' @export
 #'
 #' @examples
@@ -15,7 +16,7 @@ DaliyMeanConc <- function(Pollu, Conc) {
   else if (length(Conc) > 24)
     warning("请提供仅单日的24小时监测值！")
   else if (Pollu == "O3")
-    return(max(zoo::rollapply(Conc, 8, mean, partial = TRUE, align = 'right')))
+    return(max(rollapply(Conc, 8, mean, partial = TRUE, align = 'right')))
   else return(mean(Conc))
 }
 

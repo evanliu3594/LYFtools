@@ -5,6 +5,7 @@
 #' @param new.unit chr, the new unit
 #'
 #' @return a number of converted value in the new unit
+#' @importFrom stringr str_count
 #' @export
 #'
 #' @examples

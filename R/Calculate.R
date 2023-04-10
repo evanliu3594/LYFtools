@@ -1,12 +1,20 @@
 #' get a simple date for document naming
 #'
+#' @param x `NULL` or a `Date` format num, if NULL, returns the present date.
+#'
 #' @return 6-charactor long numbers first 2 is the year; middle 2 is the month; last 2 is the date.
+#' @importFrom stringr str_glue
 #' @export
 #'
 #' @examples
 #' simple_date()
-simple_date <- function() {
-  format(Sys.Date(), "%y%m%d")
+#' simple_date(as.Date("2023-09-09"))
+simple_date <- function(x = NULL) {
+  if (is.null(x)) format(Sys.Date(), "%y%m%d")
+  else if (is.Date(x)) format(x, "%y%m%d")
+  else if (is.character(x)) warning(str_glue(
+  "`simple_date()` only accepts `Date` formate.\n\\
+  Do you mean `simple_adte(as.Date(\'{x}\'))`?"))
 }
 
 #' get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
@@ -15,6 +23,7 @@ simple_date <- function() {
 #' @param percise the percise of the ideal raster
 #'
 #' @return a sf-bbox object
+#' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples

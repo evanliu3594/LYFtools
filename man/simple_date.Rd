@@ -4,7 +4,10 @@
 \alias{simple_date}
 \title{get a simple date for document naming}
 \usage{
-simple_date()
+simple_date(x = NULL)
+}
+\arguments{
+\item{x}{`NULL` or a `Date` format num, if NULL, returns the present date.}
 }
 \value{
 6-charactor long numbers first 2 is the year; middle 2 is the month; last 2 is the date.
@@ -14,4 +17,5 @@ get a simple date for document naming
 }
 \examples{
 simple_date()
+simple_date(as.Date("2023-09-09"))
 }
