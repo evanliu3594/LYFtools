@@ -1,4 +1,4 @@
-#' Calculate mean concentration of 6 pollutants
+#' Calculate daily mean concentration of 6 pollutants
 #'
 #' @param Pollu name of pollutants now supports `SO2`, `NO2`, `CO`, `PM2.5`, `PM10` and `O3`
 #' @param Conc a 24-long vector of hourly average concentrations
@@ -32,7 +32,7 @@ DaliyMeanConc <- function(Pollu, Conc) {
 #' IAQI_hourly("O3", 142)
 IAQI_hourly <- function(Pollu, Conc){
 
-  if (!Pollu %in% c("PM2.5", "PM25", "PM10")) {
+  if (Pollu %in% c("PM2.5", "PM25", "PM10")) {
     warning(paste(Pollu, "不是时均IAQI的计算项目",sep = ''))
     return(NA)
   } else{
