@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQI.R
 \name{DaliyMeanConc}
 \alias{DaliyMeanConc}
-\title{Calculate mean concentration of 6 pollutants}
+\title{Calculate daily mean concentration of 6 pollutants}
 \usage{
 DaliyMeanConc(Pollu, Conc)
 }
@@ -15,7 +15,7 @@ DaliyMeanConc(Pollu, Conc)
 a number of daily mean concentration of 6 pollutants in which `O3` is calculated by maximum 8-hour average
 }
 \description{
-Calculate mean concentration of 6 pollutants
+Calculate daily mean concentration of 6 pollutants
 }
 \examples{
 C <- rnorm(24, 35, 5)

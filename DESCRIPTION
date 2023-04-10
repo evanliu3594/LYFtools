@@ -5,7 +5,7 @@ Version: 0.0.1
 Author: Yifan LIU
 Maintainer: Yifan LIU <yifan.liu@smail.nju.edu.cn>
 Description: Convert geocoding coordinate system, convert between quantifiers, calculate AQI, etc
-Suggests:
+Imports:
         tidyverse,
         sf,
         zoo
