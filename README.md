@@ -14,9 +14,7 @@ functions for easy use.
 If you’re interested, you can install the development version of
 `LYFtools` like so:
 
-``` r
-devtools::install_github('evanliu3594/LYFtools')
-```
+    devtools::install_github('evanliu3594/LYFtools')
 
 # Examples
 
@@ -98,7 +96,7 @@ convert_amount(1.7, "米", "毫米")
 #> [1] 1700
 
 convert_amount(9600000, "平方公里", "平方米")
-#> [1] 9.6e+09
+#> [1] 9.6e+12
 ```
 
 ### `convert_coord()`
@@ -126,7 +124,7 @@ Note that average `O3` concentration for one day is presented by maximum
 ``` r
 C <- rnorm(24, 35, 5)
 DaliyMeanConc("PM2.5", C)
-#> [1] 34.83985
+#> [1] 34.12126
 ```
 
 ### `IAQI_hourly()`

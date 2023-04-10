@@ -24,7 +24,7 @@ The `LYFtools` package is a collection of some of my frequently used functions f
 
 If you're interested, you can install the development version of `LYFtools` like so:
 
-``` r
+```
 devtools::install_github('evanliu3594/LYFtools')
 ```
 
