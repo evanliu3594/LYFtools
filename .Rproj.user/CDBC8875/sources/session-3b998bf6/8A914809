@@ -3,24 +3,24 @@
     "path": "D:/GitDir/LYFtools/LYFtools/README.Rmd",
     "project_path": "README.Rmd",
     "type": "r_markdown",
-    "hash": "2674816133",
+    "hash": "1461411159",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1681130629831.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "115,26",
-        "scrollLine": "16"
+        "cursorPosition": "38,138",
+        "scrollLine": "19"
     },
-    "folds": "0|3|2|0|\n6|23|13|0|\n15|10|21|0|\n22|14|29|0|\n34|19|74|0|\n79|21|86|0|\n87|19|92|0|\n93|23|100|0|\n101|18|107|0|\n108|22|114|0|\n134|6|146|0|\n",
-    "lastKnownWriteTime": 1681136371,
+    "folds": "0|3|2|0|\n54|6|59|0|\n61|22|67|0|\n68|21|74|0|\n79|21|86|0|\n87|19|92|0|\n93|23|100|0|\n101|18|107|0|\n108|22|114|0|\n134|6|146|0|\n",
+    "lastKnownWriteTime": 1681138306,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1681137776758,
+    "last_content_update": 1681138313493,
     "read_only": false,
     "read_only_alternatives": []
 }

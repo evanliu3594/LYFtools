@@ -34,9 +34,9 @@ There are some basic examples which shows you how to use LYFtools:
 
 ## random functions
 
-###  `larger_bbox()` 
+### `larger_bbox()` 
 
-`larger_bbox()` is used to get a broader boundin box of a given sf/sfc object. The result is more suitable for gemerating a fishnet object
+`larger_bbox()` is used to get a broader boundin box of a given sf/sfc object. The result is more suitable for generating a fishnet raster.
 
 ```{r}
 library(LYFtools)
