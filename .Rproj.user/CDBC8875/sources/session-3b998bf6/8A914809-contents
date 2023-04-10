@@ -53,7 +53,6 @@ larger_bbox(mapchina::china, precise = 0.1) %>%
 ### `simple_date()`
 `simple_date()` is to acquire a abbreviation of the date.
 ```{r}
-library(LYFtools)
 
 simple_date()
 simple_date(as.Date("2023-09-09"))
@@ -114,7 +113,7 @@ IAQI_Daily("O3", 142)
 Calc_Daily_AQI(SO2 = 55, NO2 = 23, CO = 12, O3 = 122, PM2.5 = 35, PM10 = 55)
 ```
 
-### A complete work with AQI series functions with `dplyr`.
+### A sample workflow with AQI series functions with `tidyr` syntax.
 
 ```{r}
 library(tidyverse)
@@ -133,36 +132,39 @@ sampleConc <- data.frame(
 sampleConc
 ```
 
-## 2.求小时IAQI及AQI：
 ```{r}
+## Calculate hourly IAQI and AQI
+
 sampleConc %>% 
-    pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>% 
-    mutate(IAQI_h = map2_dbl(.x = Pollu, .y  = Conc, ~IAQI_hourly(.x, .y)))  %>% 
-    select(- Conc) |> pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
+  pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>%
+  rowwise() %>% mutate(IAQI_h = IAQI_hourly(Pollu, Conc))  %>%
+  select(-Conc) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
+
+sampleConc %>% rowwise() %>% mutate(
+  AQI_h = Calc_Hourly_AQI(SO2 = SO2, NO2 = NO2,CO = CO,O3 = O3), .keep = 'none'
+)
 
 ```
 ```{r}
-sampleConc |> rowwise() |> 
-     mutate(AQI_h = AQI_Hourely(SO2 = SO2,NO2 = NO2,CO = CO,O3 = O3), .keep = 'none')
+
+## Calculate Daily Concentration and daily AQI
+
+sampleConc_daily_mean <- sampleConc %>% select(-Time) %>% 
+  imap_dbl(~DaliyMeanConc(Pollu = .y, Conc = .x))
+
+sampleConc_daily_mean
+
+sampleConc_daily_iaqi <- sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
+
+sampleConc_daily_iaqi
 
 ```
-
-## 3. 求日均IAQI及AQI
 ```{r}
-sample_daily_conc <- sampleConc |>  DaliyMeanConc()
-sample_daily_conc
-
-sample_daily_conc |>
-    pivot_longer(everything(),names_to = 'Pollu',values_to = 'Conc') |> 
-    mutate(IAQI_d = map2_dbl(.x = Pollu, .y  = Conc, ~IAQI_Daily(.x, .y))) |> 
-    select(- Conc) |> pivot_wider(names_from = 'Pollu', values_from = 'IAQI_d')
-```
-```{r}
-sample_daily_conc %>%
-    mutate(
-      AQI_d = AQI_Daily(SO2 = SO2,NO2 = NO2,CO = CO,
-                        O3 = O3,PM10 = PM10 ,PM2.5 = PM2.5),
-      .keep = 'none'
-    )
+Calc_Daily_AQI(SO2 = sampleConc_daily_iaqi["SO2"],
+               NO2 = sampleConc_daily_iaqi["NO2"],
+               CO = sampleConc_daily_iaqi["CO"],
+               PM10 = sampleConc_daily_iaqi["PM10"],
+               PM2.5 = sampleConc_daily_iaqi["PM2.5"],
+               O3 = sampleConc_daily_iaqi["O3"])
 
 ```
