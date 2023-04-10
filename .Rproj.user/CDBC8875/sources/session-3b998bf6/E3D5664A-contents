@@ -1,0 +1,77 @@
+fpath <- 
+  "D:/temp/GHS_SMOD_P2030_GLOBE_R2022A_54009_1000_V1_0/GHS_SMOD_P2030_GLOBE_R2022A_54009_1000_V1_0.tif"
+
+# try stars----
+library(stars);sf_use_s2(F)
+library(tidyverse)
+
+GHS_SMOD <- read_stars(fpath)
+
+China_Polygon <- mapchina::china %>% st_union() %>% 
+  st_transform(st_crs(GHS_SMOD)) %>% st_buffer(10000)
+# I set a buffer of 10km to erase some small islands on coastal
+
+system.time(
+  GHS_SMOD_CNbb <- st_crop(GHS_SMOD, st_bbox(China_Polygon)) %>% st_as_stars()
+)
+# 用户 系统 流逝 
+# 0.74 0.02 0.75 
+
+GHS_SMOD_CNbb %>% plot()
+
+system.time(
+  GHS_SMOD_CN <- st_crop(GHS_SMOD_CNbb, China_Polygon)
+)
+# 用户   系统   流逝 
+# 181.42  20.34 209.36 
+
+GHS_SMOD_CN %>% plot()
+
+# try raster----
+library(raster);library(magrittr)
+
+GHS_SMOD <- raster(fpath)
+
+sf::sf_use_s2(F)
+
+China_Polygon <- mapchina::china %>% sf::st_union() %>% sf::st_transform(crs(GHS_SMOD)) %>% 
+  sf::st_buffer(10000) %>% sf::as_Spatial()
+
+system.time(
+  GHS_SMOD_CNbb <- crop(GHS_SMOD,China_Polygon) 
+)
+# 用户 系统 流逝 
+# 0.62 0.10 0.72 
+
+GHS_SMOD_CNbb %>% plot()
+
+system.time(
+  GHS_SMOD_CN <- mask(GHS_SMOD_CNbb, China_Polygon) 
+)
+# 用户 系统 流逝 
+# 1.11 0.94 2.05 
+
+GHS_SMOD_CN %>% plot()
+
+
+# try terra ----
+library(magrittr);library(terra)
+
+GHS_SMOD <- rast(fpath)
+
+sf::sf_use_s2(F)
+
+China_Polygon <- mapchina::china %>% sf::st_union() %>% sf::st_transform(crs(GHS_SMOD)) %>% 
+  sf::st_buffer(10000) %>% vect()
+
+system.time(
+  GHS_SMOD_CNbb <- crop(GHS_SMOD,China_Polygon)
+)
+# 用户 系统 流逝 
+# 0.25 0.13 0.37
+
+system.time(
+  GHS_SMOD_CN <- crop(GHS_SMOD_CNbb, China_Polygon, mask = T) 
+)
+# 用户 系统 流逝 
+# 1.05 0.25 1.30 

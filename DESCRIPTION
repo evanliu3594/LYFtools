@@ -1,0 +1,15 @@
+Package: LYFtools
+Type: Package
+Title: LYF's usefull functions for common data treatment.
+Version: 0.0.1
+Author: Yifan LIU
+Maintainer: Yifan LIU <yifan.liu@smail.nju.edu.cn>
+Description: Convert geocoding coordinate system, convert between quantifiers, calculate AQI, etc
+Suggests:
+        tidyverse,
+        sf,
+        zoo
+License: GPL-3
+Encoding: UTF-8
+LazyData: TRUE
+RoxygenNote: 7.2.3
