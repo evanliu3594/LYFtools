@@ -6,13 +6,13 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of LYFtools is package some of my frequently used functions for
-easy use.
+The `LYFtools` package is a collection of some of my frequently used
+functions for easy use.
 
 # Installation
 
 If you’re interested, you can install the development version of
-LYFtools like so:
+`LYFtools` like so:
 
 ``` r
 devtools::install_github('evanliu3594/LYFtools')
@@ -20,13 +20,13 @@ devtools::install_github('evanliu3594/LYFtools')
 
 # Examples
 
-There are some basic examples which shows you how to use LYFtools:
+There are some basic examples which shows you how to use `LYFtools`:
 
 ## random functions
 
 ### `larger_bbox()`
 
-`larger_bbox()` is used to get a broader boundin box of a given sf/sfc
+`larger_bbox()` is used to get a broader bounding box of a given sf/sfc
 object. The result is more suitable for generating a fishnet raster.
 
 ``` r
@@ -62,9 +62,9 @@ larger_bbox(mapchina::china, precise = 0.1) %>%
 #>         Min. 1st Qu. Median Mean 3rd Qu. Max.
 #> values     0       0      0    0       0    0
 #> dimension(s):
-#>   from  to offset delta x/y
-#> x    1 614   73.5   0.1 [x]
-#> y    1 370   53.6  -0.1 [y]
+#>   from  to offset delta refsys x/y
+#> x    1 613   73.5   0.1 WGS 84 [x]
+#> y    1 370   53.6  -0.1 WGS 84 [y]
 ```
 
 ### `simple_date()`
@@ -74,7 +74,7 @@ larger_bbox(mapchina::china, precise = 0.1) %>%
 ``` r
 
 simple_date()
-#> [1] "230410"
+#> [1] "230411"
 simple_date(as.Date("2023-09-09"))
 #> [1] "230909"
 ```
@@ -114,7 +114,7 @@ Note that average `O3` concentration for one day is presented by maximum
 ``` r
 C <- rnorm(24, 35, 5)
 DaliyMeanConc("PM2.5", C)
-#> [1] 35.15132
+#> [1] 34.44957
 ```
 
 ### `IAQI_hourly()`
@@ -162,55 +162,55 @@ Calc_Daily_AQI(SO2 = 55, NO2 = 23, CO = 12, O3 = 122, PM2.5 = 35, PM10 = 55)
 ``` r
 library(tidyverse)
 # generating sample data
+set.seed(3594)
 
 sampleConc <- data.frame(
   Time = 0:23,
   SO2 = rnorm(24, mean = 300, sd = 20),
   NO2 = rnorm(24, mean = 800, sd = 100),
-  O3 = rnorm(24, mean = 500, sd = 100),
-  CO = rnorm(24, mean = 40, sd = 10),
+  O3 = rnorm(24, mean = 50, sd = 15),
+  CO = rnorm(24, mean = 25, sd = 10),
   PM2.5 = rnorm(24, mean = 200, sd = 50),
   PM10 = rnorm(24, mean = 350, sd = 100)
 )
 
 sampleConc
-#>    Time      SO2       NO2       O3       CO     PM2.5     PM10
-#> 1     0 306.3557  612.0725 469.8014 42.60227 244.41796 141.9190
-#> 2     1 286.3431  746.3347 359.6976 36.78108 274.25860 275.9438
-#> 3     2 268.4964  720.2977 472.9364 37.05268 203.07282 372.0740
-#> 4     3 301.9337  901.5530 479.7439 50.42505 185.75630 442.8127
-#> 5     4 341.0765  813.9433 486.7712 44.36956 208.26989 269.6353
-#> 6     5 322.8969  684.6562 537.5818 34.98413 199.65889 403.5615
-#> 7     6 283.1455  795.3328 518.9189 40.32350 201.23236 229.4384
-#> 8     7 310.4128  806.9542 560.0303 32.40069 172.59961 416.9313
-#> 9     8 315.8487  698.9240 350.2932 30.60192  95.95341 202.7774
-#> 10    9 271.6640 1019.1927 422.4195 37.26914 142.70413 328.2276
-#> 11   10 307.0951  890.7179 725.3338 37.06648 144.11615 208.3070
-#> 12   11 287.4940  848.9241 395.2390 56.43634 221.16731 476.7293
-#> 13   12 285.0664  749.6335 590.3431 32.60101 154.10572 200.1340
-#> 14   13 284.3717  998.9472 546.3852 37.74400 202.04390 359.2103
-#> 15   14 315.7428  788.6416 593.6763 29.09314 236.73486 159.5817
-#> 16   15 297.1417  920.2626 689.3741 32.09506 151.21514 438.4101
-#> 17   16 319.5296  736.0565 616.3322 42.66792 218.73338 285.9304
-#> 18   17 318.8113  837.0339 358.9318 26.62261 274.74324 334.2408
-#> 19   18 310.1015  827.5826 546.5909 64.31520 237.27298 448.4139
-#> 20   19 311.8132  828.0585 487.3308 33.10280 173.58874 383.3828
-#> 21   20 337.6552  618.1172 557.2941 46.27762  88.59431 488.9598
-#> 22   21 301.7703  665.7651 672.3558 40.99863 191.77170 309.2743
-#> 23   22 309.7715  792.3738 546.9319 54.94175 269.23231 504.3191
-#> 24   23 303.1943  768.5232 439.2956 29.82972 199.18266 311.0945
+#>    Time      SO2       NO2       O3        CO    PM2.5     PM10
+#> 1     0 282.6336  725.9022 26.81392 31.808906 203.6997 112.8879
+#> 2     1 308.5550  882.4118 66.07455 33.801632 243.8070 432.4884
+#> 3     2 297.1028  789.9174 31.48264 20.298789 188.1988 372.0612
+#> 4     3 313.0599  940.6195 45.81785 37.278949 183.5013 257.4157
+#> 5     4 291.9301  831.5420 56.17956 38.267967 149.9136 133.4147
+#> 6     5 318.8297  816.8969 57.94609 23.530815 198.9590 362.9265
+#> 7     6 285.2910  896.0794 69.18587 22.571036 244.9179 366.0634
+#> 8     7 295.5645  777.8727 62.78614 41.581982 230.9641 166.2338
+#> 9     8 315.4174  858.6175 66.43275 30.852286 201.4643 378.6020
+#> 10    9 321.0564  679.0508 39.26804 28.623032 153.3312 334.5678
+#> 11   10 334.9376  946.8561 68.17154 31.063777 290.7204 369.8164
+#> 12   11 284.7465  789.9956 68.17813  2.242978 145.1945 340.2189
+#> 13   12 332.3311  864.3152 42.35006 15.853442 266.9659 380.3320
+#> 14   13 319.5366  612.8492 35.15732 23.514248 203.7449 211.3560
+#> 15   14 287.6997  983.9330 81.22990 27.727077 273.1174 254.1899
+#> 16   15 316.2936  847.6682 54.26281 19.497845 201.6686 232.9685
+#> 17   16 303.5366  951.6857 56.99189 31.199044 154.0529 400.0613
+#> 18   17 305.6755  845.5181 56.30190 30.766344 176.0894 370.8452
+#> 19   18 302.2794  786.6620 51.27125 26.879688 180.7333 442.5318
+#> 20   19 253.9591 1006.0020 49.39657 23.214658 162.1812 400.7118
+#> 21   20 329.5264  709.0154 62.83895 34.491416 156.5542 475.9367
+#> 22   21 286.5990  775.0531 59.48596 29.028170 221.5060 192.5748
+#> 23   22 282.2197  933.5219 44.26432 35.629945 249.4632 363.7812
+#> 24   23 272.4587  812.0440 46.08659 30.791025 174.8789 368.5642
 ```
 
 ``` r
 ## Calculate hourly IAQI and AQI
-
 sampleConc %>% 
-  pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>%
-  rowwise() %>% mutate(IAQI_h = IAQI_hourly(Pollu, Conc))  %>%
-  select(-Conc) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
+  pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>% rowwise() %>% 
+  mutate(IAQI_h = IAQI_hourly(Pollu = Pollu, Conc = Conc)) %>% select(-Conc) %>% 
+  unnest(IAQI_h) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
 #> Warning: There were 48 warnings in `mutate()`.
 #> The first warning was:
-#> ℹ In argument: `IAQI_h = IAQI_hourly(Pollu, Conc)`.
+#> ℹ In argument: `IAQI_h = IAQI_hourly(Pollu = Pollu, Conc = Conc)`.
 #> ℹ In row 5.
 #> Caused by warning in `IAQI_hourly()`:
 #> ! PM2.5不是时均IAQI的计算项目
@@ -218,16 +218,16 @@ sampleConc %>%
 #> # A tibble: 24 × 7
 #>     Time   SO2   NO2    O3    CO PM2.5  PM10
 #>    <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1     0  72.3  141.  159.  165.    NA    NA
-#>  2     1  69.5  155.  140.  154.    NA    NA
-#>  3     2  66.9  152.  159.  154.    NA    NA
-#>  4     3  71.7  170.  160.  181.    NA    NA
-#>  5     4  77.3  161.  161.  169.    NA    NA
-#>  6     5  74.7  148.  167.  150.    NA    NA
-#>  7     6  69.0  160.  165.  161.    NA    NA
-#>  8     7  72.9  161.  170.  145.    NA    NA
-#>  9     8  73.7  150.  138.  141.    NA    NA
-#> 10     9  67.4  182.  153.  155.    NA    NA
+#>  1     0  68.9  153.  8.38  144.    NA    NA
+#>  2     1  72.7  168. 20.6   148.    NA    NA
+#>  3     2  71.0  159.  9.84  121.    NA    NA
+#>  4     3  73.3  174. 14.3   155.    NA    NA
+#>  5     4  70.3  163. 17.6   157.    NA    NA
+#>  6     5  74.1  162. 18.1   127.    NA    NA
+#>  7     6  69.3  170. 21.6   125.    NA    NA
+#>  8     7  70.8  158. 19.6   163.    NA    NA
+#>  9     8  73.6  166. 20.8   142.    NA    NA
+#> 10     9  74.4  148. 12.3   137.    NA    NA
 #> # ℹ 14 more rows
 
 sampleConc %>% rowwise() %>% mutate(
@@ -237,16 +237,16 @@ sampleConc %>% rowwise() %>% mutate(
 #> # Rowwise: 
 #>    AQI_h
 #>    <dbl>
-#>  1  165.
-#>  2  155.
+#>  1  153.
+#>  2  168.
 #>  3  159.
-#>  4  181.
-#>  5  169.
-#>  6  167.
-#>  7  165.
-#>  8  170.
-#>  9  150.
-#> 10  182.
+#>  4  174.
+#>  5  163.
+#>  6  162.
+#>  7  170.
+#>  8  163.
+#>  9  166.
+#> 10  148.
 #> # ℹ 14 more rows
 ```
 
@@ -259,22 +259,20 @@ sampleConc_daily_mean <- sampleConc %>% select(-Time) %>%
 
 sampleConc_daily_mean
 #>       SO2       NO2        O3        CO     PM2.5      PM10 
-#> 304.07217 794.57911 572.38789  39.60843 195.43443 332.97121
+#> 301.71833 836.00124  61.01851  27.93813 202.31781 321.68959
 
-sampleConc_daily_iaqi <- sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
-
-sampleConc_daily_iaqi
-#>      SO2      NO2       O3       CO    PM2.5     PM10 
-#> 123.7034 423.4627 257.4557 330.0702 245.4344 191.4856
+sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
+#>       SO2       NO2        O3        CO     PM2.5      PM10 
+#> 123.34128 445.26381  30.50926 232.81773 252.31781 185.84479
 ```
 
 ``` r
-Calc_Daily_AQI(SO2 = sampleConc_daily_iaqi["SO2"],
-               NO2 = sampleConc_daily_iaqi["NO2"],
-               CO = sampleConc_daily_iaqi["CO"],
-               PM10 = sampleConc_daily_iaqi["PM10"],
-               PM2.5 = sampleConc_daily_iaqi["PM2.5"],
-               O3 = sampleConc_daily_iaqi["O3"])
-#>  CO 
-#> Inf
+Calc_Daily_AQI(SO2 = sampleConc_daily_mean[["SO2"]],
+               NO2 = sampleConc_daily_mean[["NO2"]],
+               CO = sampleConc_daily_mean[["CO"]],
+               PM10 = sampleConc_daily_mean[["PM10"]],
+               PM2.5 = sampleConc_daily_mean[["PM2.5"]],
+               O3 = sampleConc_daily_mean[["O3"]])
+#>      NO2 
+#> 445.2638
 ```

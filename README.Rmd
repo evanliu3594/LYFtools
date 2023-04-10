@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of `LYFtools` is package some of my frequently used functions for easy use.
+The `LYFtools` package is a collection of some of my frequently used functions for easy use.
 
 # Installation
 
@@ -30,13 +30,13 @@ devtools::install_github('evanliu3594/LYFtools')
 
 # Examples
 
-There are some basic examples which shows you how to use LYFtools:
+There are some basic examples which shows you how to use `LYFtools`:
 
 ## random functions
 
 ### `larger_bbox()` 
 
-`larger_bbox()` is used to get a broader boundin box of a given sf/sfc object. The result is more suitable for generating a fishnet raster.
+`larger_bbox()` is used to get a broader bounding box of a given sf/sfc object. The result is more suitable for generating a fishnet raster.
 
 ```{r}
 library(LYFtools)
@@ -118,13 +118,14 @@ Calc_Daily_AQI(SO2 = 55, NO2 = 23, CO = 12, O3 = 122, PM2.5 = 35, PM10 = 55)
 ```{r}
 library(tidyverse)
 # generating sample data
+set.seed(3594)
 
 sampleConc <- data.frame(
   Time = 0:23,
   SO2 = rnorm(24, mean = 300, sd = 20),
   NO2 = rnorm(24, mean = 800, sd = 100),
-  O3 = rnorm(24, mean = 500, sd = 100),
-  CO = rnorm(24, mean = 40, sd = 10),
+  O3 = rnorm(24, mean = 50, sd = 15),
+  CO = rnorm(24, mean = 25, sd = 10),
   PM2.5 = rnorm(24, mean = 200, sd = 50),
   PM10 = rnorm(24, mean = 350, sd = 100)
 )
@@ -134,16 +135,14 @@ sampleConc
 
 ```{r}
 ## Calculate hourly IAQI and AQI
-
 sampleConc %>% 
-  pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>%
-  rowwise() %>% mutate(IAQI_h = IAQI_hourly(Pollu, Conc))  %>%
-  select(-Conc) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
+  pivot_longer(-Time, names_to = 'Pollu', values_to = 'Conc') %>% rowwise() %>% 
+  mutate(IAQI_h = IAQI_hourly(Pollu = Pollu, Conc = Conc)) %>% select(-Conc) %>% 
+  unnest(IAQI_h) %>% pivot_wider(names_from = 'Pollu', values_from = 'IAQI_h')
 
 sampleConc %>% rowwise() %>% mutate(
   AQI_h = Calc_Hourly_AQI(SO2 = SO2, NO2 = NO2,CO = CO,O3 = O3), .keep = 'none'
 )
-
 ```
 ```{r}
 
@@ -154,17 +153,14 @@ sampleConc_daily_mean <- sampleConc %>% select(-Time) %>%
 
 sampleConc_daily_mean
 
-sampleConc_daily_iaqi <- sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
-
-sampleConc_daily_iaqi
-
+sampleConc_daily_mean %>% imap_dbl(~IAQI_Daily(Pollu = .y, Conc = .x))
 ```
 ```{r}
-Calc_Daily_AQI(SO2 = sampleConc_daily_iaqi["SO2"],
-               NO2 = sampleConc_daily_iaqi["NO2"],
-               CO = sampleConc_daily_iaqi["CO"],
-               PM10 = sampleConc_daily_iaqi["PM10"],
-               PM2.5 = sampleConc_daily_iaqi["PM2.5"],
-               O3 = sampleConc_daily_iaqi["O3"])
+Calc_Daily_AQI(SO2 = sampleConc_daily_mean[["SO2"]],
+               NO2 = sampleConc_daily_mean[["NO2"]],
+               CO = sampleConc_daily_mean[["CO"]],
+               PM10 = sampleConc_daily_mean[["PM10"]],
+               PM2.5 = sampleConc_daily_mean[["PM2.5"]],
+               O3 = sampleConc_daily_mean[["O3"]])
 
 ```

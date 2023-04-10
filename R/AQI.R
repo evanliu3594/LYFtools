@@ -34,7 +34,7 @@ IAQI_hourly <- function(Pollu, Conc){
 
   if (Pollu %in% c("PM2.5", "PM25", "PM10")) {
     warning(paste(Pollu, "不是时均IAQI的计算项目",sep = ''))
-    return(NA)
+    return(Inf)
   } else{
     AQI_table <- list(
       AQI = c(0,  50, 100, 150,  200,  300,  400,  500, Inf),
