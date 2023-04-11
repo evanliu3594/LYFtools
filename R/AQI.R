@@ -20,6 +20,7 @@ DaliyMeanConc <- function(Pollu, Conc) {
   else return(mean(Conc))
 }
 
+
 #' Calculate hourly IAQI for given pollutant
 #'
 #' @param Pollu name of pollutants now supports `SO2`, `NO2`, `CO`, and `O3`.

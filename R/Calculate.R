@@ -18,6 +18,7 @@ simple_date <- function(x = NULL) {
   Do you mean `simple_adte(as.Date(\'{x}\'))`?"))
 }
 
+
 #' get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
 #'
 #' @param x the sf/sfc object

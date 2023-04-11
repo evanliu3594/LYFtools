@@ -124,7 +124,7 @@ Note that average `O3` concentration for one day is presented by maximum
 ``` r
 C <- rnorm(24, 35, 5)
 DaliyMeanConc("PM2.5", C)
-#> [1] 34.12126
+#> [1] 34.64912
 ```
 
 ### `IAQI_hourly()`

@@ -1,7 +1,12 @@
 #' My ggplot2 theme for scientific plotting use
 #'
 #' @return a ggplot theme object
-#' @import ggplot2
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 unit
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 element_rect
+#' @importFrom ggplot2 element_line
+#' @importFrom ggplot2 element_text
 #' @export
 #'
 #' @examples
