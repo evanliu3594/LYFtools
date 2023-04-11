@@ -9,7 +9,7 @@ larger_bbox(x, precise = 0.25)
 \arguments{
 \item{x}{the sf/sfc object}
 
-\item{percise}{the percise of the ideal raster}
+\item{precise}{the precise/size of the ideal raster}
 }
 \value{
 a sf-bbox object

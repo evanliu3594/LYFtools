@@ -4,6 +4,7 @@
 #'
 #' @return 6-charactor long numbers first 2 is the year; middle 2 is the month; last 2 is the date.
 #' @importFrom stringr str_glue
+#' @importFrom lubridate is.Date
 #' @export
 #'
 #' @examples
@@ -20,7 +21,7 @@ simple_date <- function(x = NULL) {
 #' get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
 #'
 #' @param x the sf/sfc object
-#' @param percise the percise of the ideal raster
+#' @param precise the precise/size of the ideal raster
 #'
 #' @return a sf-bbox object
 #' @importFrom magrittr %>%

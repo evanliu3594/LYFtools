@@ -6,11 +6,16 @@ Author: Yifan LIU
 Maintainer: Yifan LIU <yifan.liu@smail.nju.edu.cn>
 Description: Convert geocoding coordinate system, convert between quantifiers, calculate AQI, etc
 Imports:
-    tidyverse,
     sf,
     zoo,
-    magrittr
+    magrittr,
+    dplyr,
+    ggplot2,
+    purrr,
+    stringr,
+    lubridate
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.2.3
+Suggests: 

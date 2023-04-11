@@ -13,5 +13,6 @@ a ggplot theme object
 My ggplot2 theme for scientific plotting use
 }
 \examples{
-ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + stat_smooth() + Evantheme()
+library(ggplot2)
+ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + Evantheme()
 }

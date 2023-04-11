@@ -26,6 +26,8 @@ DaliyMeanConc <- function(Pollu, Conc) {
 #' @param Conc a number of hourly mean concentration of the pollutant.
 #'
 #' @return the hourly IAQI index score of the give pollutant.
+#' @importFrom utils head
+#' @importFrom utils tail
 #' @export
 #'
 #' @examples

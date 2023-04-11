@@ -5,10 +5,9 @@
 #' @export
 #'
 #' @examples
-#' ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + stat_smooth() + Evantheme()
+#' library(ggplot2)
+#' ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + Evantheme()
 Evantheme <- function() {
-
-  windowsFonts(Calibri = windowsFont("Calibri"))
 
   theme(
     panel.grid.major = element_blank(),
@@ -25,7 +24,7 @@ Evantheme <- function() {
     legend.key.size = unit(0.7, "cm"),
     legend.position = c(.15, 0.75),
     legend.text = element_text(
-      family = "Calibri",
+      family = "sans",
       colour = "black",
       size = 12,
       face = "bold"
@@ -33,13 +32,13 @@ Evantheme <- function() {
     axis.ticks = element_line(colour = "black", linewidth = 0.6),
     axis.line = element_line(colour = "black", linewidth = 0.75),
     axis.text = element_text(
-      family = "Calibri",
+      family = "sans",
       color = 'black',
       size = 14,
       face = "bold"
     ),
     axis.title = element_text(
-      family = "Calibri",
+      family = "sans",
       size = 15,
       face = "bold",
       hjust = 0.5,
