@@ -41,12 +41,14 @@ larger_bbox <- function(x, precise = 0.25) {
 
   bbox %>% imap_dbl( ~ {
 
-    a <- floor(.x)
+    a <- round(.x, floor(-1 * log10(precise)))
 
     if (str_detect(.y, "min")) {
-      while(a < .x - precise) {a = a + precise}
+      if (a < .x) while (a < .x - precise) {a <- a + precise}
+      else if (a > .x) while (a > .x) {a <- a - precise}
     } else if (str_detect(.y, "max")) {
-      while(a < .x) {a = a + precise}
+      if (a < .x) while (a < .x) {a <- a + precise}
+      else if (a > .x) while (a > .x + precise) {a <- a - precise}
     }
 
     return(a)

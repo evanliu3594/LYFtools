@@ -24,8 +24,14 @@
 #'
 "cnmap_counties"
 
-#' islands of China in far sea which are not included in county-scale map.
+#' Islands of China in far sea which are not included in county-scale map.
 #'
 #' @format a sf polygon object.
 #'
 "cnmap_islands"
+
+#' Simplified China boundary for mainland and Taiwan.
+#'
+#' @format a sf polygon object.
+#'
+"cnmap_simplified"

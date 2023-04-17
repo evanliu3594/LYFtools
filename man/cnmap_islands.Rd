@@ -3,7 +3,7 @@
 \docType{data}
 \name{cnmap_islands}
 \alias{cnmap_islands}
-\title{islands of China in far sea which are not included in county-scale map.}
+\title{Islands of China in far sea which are not included in county-scale map.}
 \format{
 a sf polygon object.
 }
@@ -11,6 +11,6 @@ a sf polygon object.
 cnmap_islands
 }
 \description{
-islands of China in far sea which are not included in county-scale map.
+Islands of China in far sea which are not included in county-scale map.
 }
 \keyword{datasets}
