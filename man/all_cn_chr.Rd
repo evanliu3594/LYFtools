@@ -3,15 +3,15 @@
 \docType{data}
 \name{all_cn_chr}
 \alias{all_cn_chr}
-\title{Regex-Syntax for subsetting all Chinese characters}
+\title{Regex-Syntax for subsetting all Chinese characters.}
 \format{
 ## `all_cn_chr`
-a chr string of regex syntax
+a chr string of regex syntax to match all Chinese characters.
 }
 \usage{
 all_cn_chr
 }
 \description{
-Regex-Syntax for subsetting all Chinese characters
+Regex-Syntax for subsetting all Chinese characters.
 }
 \keyword{datasets}

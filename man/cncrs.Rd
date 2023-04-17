@@ -3,15 +3,15 @@
 \docType{data}
 \name{cncrs}
 \alias{cncrs}
-\title{PROJ4 string of China projection coordinate system}
+\title{PROJ4 string of China projection coordinate system.}
 \format{
 ## `cncrs`
-a string of PROJ4 albert projection for China domain
+a string of PROJ4 Albert projection for China domain.
 }
 \usage{
 cncrs
 }
 \description{
-PROJ4 string of China projection coordinate system
+PROJ4 string of China projection coordinate system.
 }
 \keyword{datasets}
