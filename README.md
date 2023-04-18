@@ -28,6 +28,17 @@ A regex syntax to retrieve all Chinese characters form a string.
 
 ``` r
 library(LYFtools)
+library(tidyverse)
+#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.1     ✔ readr     2.1.4
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#> ✔ ggplot2   3.4.1     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.1     
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors
 stringr::str_extract("1234567，走南闯北吃东西abcdefg", all_cn_chr)
 #> [1] "走南闯北吃东西"
 ```
@@ -43,7 +54,6 @@ County-level map of China, a sf object. Inherited and simplied from
 `mapchina` package.
 
 ``` r
-library(ggplot2)
 cnmap_counties %>% ggplot() + geom_sf()
 ```
 
@@ -61,16 +71,6 @@ cnmap_counties %>% ggplot() + geom_sf() + coord_sf(crs = cncrs)
 Far-sea islands and south China sea boundary.
 
 ``` r
-library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.1     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ lubridate 1.9.2     ✔ tibble    3.2.1
-#> ✔ purrr     1.0.1     ✔ tidyr     1.3.0
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors
 library(sf)
 #> Linking to GEOS 3.9.3, GDAL 3.5.2, PROJ 8.2.1; sf_use_s2() is TRUE
 sf_use_s2(F)

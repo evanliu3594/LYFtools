@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # LYFtools
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The `LYFtools` package is a collection of some of my frequently used functions for easy use.
@@ -40,6 +41,7 @@ A regex syntax to retrieve all Chinese characters form a string.
 
 ```{r}
 library(LYFtools)
+library(tidyverse)
 stringr::str_extract("1234567，走南闯北吃东西abcdefg", all_cn_chr)
 ```
 ### `cncrs`
@@ -51,7 +53,6 @@ A Albert projection setting to get better view of China map, see examples in lat
 County-level map of China, a sf object. Inherited and simplied from `mapchina` package.
 
 ```{r}
-library(ggplot2)
 cnmap_counties %>% ggplot() + geom_sf()
 ```
 
@@ -65,7 +66,6 @@ cnmap_counties %>% ggplot() + geom_sf() + coord_sf(crs = cncrs)
 Far-sea islands and south China sea boundary.
 
 ```{r}
-library(tidyverse)
 library(sf)
 sf_use_s2(F)
 

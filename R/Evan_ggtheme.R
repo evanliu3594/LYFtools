@@ -49,5 +49,5 @@ Evantheme <- function() {
       hjust = 0.5,
       vjust = 5
     )
-  ) %>% return()
+  )
 }

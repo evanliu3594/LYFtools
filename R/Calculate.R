@@ -32,13 +32,13 @@ simple_date <- function(x = NULL) {
 #' @export
 #'
 #' @examples
-#' sf::st_bbox(mapchina::china)
-#' larger_bbox(mapchina::china, precise = 0.25)
+#' sf::st_bbox(cnmap_simple)
+#' larger_bbox(cnmap_simple, precise = 0.25)
 larger_bbox <- function(x, precise = 0.25) {
 
   bbox <- st_bbox(x)
 
-  bbox %>% imap_dbl( ~ {
+  bbox |> imap_dbl( ~ {
 
     a <- round(.x, floor(-1 * log10(precise)))
 
@@ -52,6 +52,6 @@ larger_bbox <- function(x, precise = 0.25) {
 
     return(a)
 
-  }) %>% st_bbox(crs = st_crs(x))
+  }) |> st_bbox(crs = st_crs(x))
 
 }
