@@ -25,7 +25,6 @@ simple_date <- function(x = NULL) {
 #' @param precise the precise/size of the ideal raster
 #'
 #' @return a sf-bbox object
-#' @importFrom magrittr %>%
 #' @importFrom stringr str_detect
 #' @importFrom purrr imap_dbl
 #' @importFrom sf st_bbox
