@@ -35,28 +35,35 @@ There are some basic examples which shows you how to use `LYFtools`:
 ## Data incorporated
 
 ### `all_cn_chr`
+
 A regex syntax to retrieve all Chinese characters form a string.
 
 ```{r}
 library(LYFtools)
 stringr::str_extract("1234567，走南闯北吃东西", all_cn_chr)
 ```
-
 ### `cncrs`
+
 A Albert projection setting to get better view of China map, see examples in later mapping components.
 
 ### `cnmap_counties`
+
 County-level map of China, a sf object. Inherited and simplied from `mapchina` package.
+
 ```{r}
 library(ggplot2)
 cnmap_counties %>% ggplot() + geom_sf()
 ```
+
 ```{r}
 # see difference when projecting in `cncrs`
 cnmap_counties %>% ggplot() + geom_sf() + coord_sf(crs = cncrs)
 ```
+
 ### `cnmap_9dx` and `cnmap_islands`
+
 Far-sea islands and south China sea boundary.
+
 ```{r}
 library(tidyverse)
 library(sf)
@@ -78,13 +85,13 @@ ggplot() +
 `larger_bbox()` is used to get a broader bounding box of a given sf/sfc object. The result is more suitable for generating a fishnet raster.
 
 ```{r}
-st_bbox(mapchina::china) %>% 
+st_bbox(cnmap_counties) %>% 
   stars::st_as_stars(dx = 0.1, dy = 0.1)
 
-larger_bbox(mapchina::china, precise = 0.1) %>% 
+larger_bbox(cnmap_counties, precise = 0.1) %>% 
   stars::st_as_stars(dx = 0.1, dy = 0.1)
 
-larger_bbox(mapchina::china, precise = 10) %>% 
+larger_bbox(cnmap_counties, precise = 10) %>% 
   stars::st_as_stars(dx = 10, dy = 10)
 ```
 

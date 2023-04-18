@@ -54,9 +54,11 @@ cnmap_counties %>% ggplot() + geom_sf()
 cnmap_counties %>% ggplot() + geom_sf() + coord_sf(crs = cncrs)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" /> \###
-`cnmap_9dx` and `cnmap_islands` Far-sea islands and south China sea
-boundary.
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+### `cnmap_9dx` and `cnmap_islands`
+
+Far-sea islands and south China sea boundary.
 
 ``` r
 library(tidyverse)
@@ -159,7 +161,7 @@ ggplot() +
 object. The result is more suitable for generating a fishnet raster.
 
 ``` r
-sf::st_bbox(mapchina::china) %>% 
+st_bbox(cnmap_counties) %>% 
   stars::st_as_stars(dx = 0.1, dy = 0.1)
 #> stars object with 2 dimensions and 1 attribute
 #> attribute(s):
@@ -170,7 +172,7 @@ sf::st_bbox(mapchina::china) %>%
 #> x    1 613 73.5008   0.1 WGS 84 [x]
 #> y    1 370 53.5608  -0.1 WGS 84 [y]
 
-larger_bbox(mapchina::china, precise = 0.1) %>% 
+larger_bbox(cnmap_counties, precise = 0.1) %>% 
   stars::st_as_stars(dx = 0.1, dy = 0.1)
 #> stars object with 2 dimensions and 1 attribute
 #> attribute(s):
@@ -181,7 +183,7 @@ larger_bbox(mapchina::china, precise = 0.1) %>%
 #> x    1 614   73.5   0.1 WGS 84 [x]
 #> y    1 370   53.6  -0.1 WGS 84 [y]
 
-larger_bbox(mapchina::china, precise = 10) %>% 
+larger_bbox(cnmap_counties, precise = 10) %>% 
   stars::st_as_stars(dx = 10, dy = 10)
 #> stars object with 2 dimensions and 1 attribute
 #> attribute(s):
