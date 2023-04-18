@@ -28,7 +28,7 @@ A regex syntax to retrieve all Chinese characters form a string.
 
 ``` r
 library(LYFtools)
-stringr::str_extract("1234567，走南闯北吃东西", all_cn_chr)
+stringr::str_extract("1234567，走南闯北吃东西abcdefg", all_cn_chr)
 #> [1] "走南闯北吃东西"
 ```
 
@@ -77,7 +77,7 @@ sf_use_s2(F)
 #> Spherical geometry (s2) switched off
 
 ggplot() + 
-  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = sf::st_union(geometry))) +
+  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = st_union(geometry))) +
   geom_sf(data = cnmap_9dx, linewidth = 1) +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs)
@@ -247,7 +247,7 @@ A Yifan LIU-defined ggplot theme, already applied into my publications.
 
 ``` r
 ggplot() + 
-  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = sf::st_union(geometry))) +
+  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = st_union(geometry))) +
   geom_sf(data = cnmap_9dx, linewidth = 1) +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs) +
