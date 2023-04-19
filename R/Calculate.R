@@ -64,7 +64,6 @@ larger_bbox <- function(x, precise = 0.25) {
 #'
 #' @return the check `path` same as input
 #'
-#' @importFrom purrr reduce
 #' @export
 #'
 #' @examples
@@ -75,7 +74,7 @@ dir_validate <- function(path) {
 
   if_not_exist_then_create <- \(x) {if (!dir.exists(x)) dir.create(x); return(x)}
 
-  reduce(dir, \(d1, d2) if_not_exist_then_create(file.path(d1, d2)))
+  Reduce(\(d1, d2) if_not_exist_then_create(file.path(d1, d2)), dir)
 
   return(path)
 }

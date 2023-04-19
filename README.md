@@ -160,8 +160,8 @@ ggplot() +
 
 ### `larger_bbox()`
 
-`larger_bbox()` is used to get a broader bounding box of a given sf/sfc
-object. The result is more suitable for generating a fishnet raster.
+Get a broader bounding box of a given sf/sfc object. The result is more
+suitable for generating a fishnet raster.
 
 ``` r
 st_bbox(cnmap_counties) %>% 
@@ -200,7 +200,7 @@ larger_bbox(cnmap_counties, precise = 10) %>%
 
 ### `simple_date()`
 
-`simple_date()` is to acquire a abbreviation of the date.
+`simple_date()` acquires a abbreviation of the date.
 
 ``` r
 simple_date()
@@ -218,9 +218,9 @@ str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
 ### `dir_validate()`
 
 `dir_validate()` checks the given file path to see whether it contains
-of any non-existing folder. If yes, this function automatically creates
-these folders to ensure the path is available. Useful when generating a
-file name for saving.
+any non-existing folder. If yes, this function automatically creates the
+folder(s) to ensure the path is available. Useful when generating a file
+name for saving.
 
 ``` r
 writeLines("abc", dir_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.abc"))
@@ -234,8 +234,7 @@ utils::browseURL("~/THE/FILE/PATH/THAT/YOU/WANT/TO/")
 
 ### `convert_amount()`
 
-`convert_amount()` is used for convert and reform the values between
-Chinese quantifiers
+Convert and reform the values between some Chinese quantifiers
 
 ``` r
 convert_amount(66, "兆瓦", "万千瓦")
@@ -250,9 +249,9 @@ convert_amount(9600000, "平方公里", "平方米")
 
 ### `convert_coord()`
 
-`convert_coord()` is used for convert a set of geo-coding (long, lat)
-between some Chinese defined coordinate systems and WGS1984 coordinate
-system. Note that only works inside China domain
+Convert a set of geo-coding (long, lat) between some Chinese defined
+coordinate systems and WGS1984 coordinate system. Note that only works
+inside China domain.
 
 ``` r
 convert_coord(133, 47, from = "GCJ02", to = "WGS84")
