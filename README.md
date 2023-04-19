@@ -76,79 +76,82 @@ library(sf)
 sf_use_s2(F)
 #> Spherical geometry (s2) switched off
 
+cnmap_provinces <- cnmap_counties %>% group_by(Code_Province) %>% 
+  summarise(geometry = st_union(geometry))
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+#> although coordinates are longitude/latitude, st_union assumes that they are
+#> planar
+
 ggplot() + 
-  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = st_union(geometry))) +
+  geom_sf(data = cnmap_provinces) +
   geom_sf(data = cnmap_9dx, linewidth = 1) +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs)
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
@@ -201,16 +204,15 @@ larger_bbox(cnmap_counties, precise = 10) %>%
 
 ``` r
 simple_date()
-#> [1] "230418"
+#> [1] "230419"
 simple_date(as.Date("2023-09-09"))
 #> [1] "230909"
 simple_date("2025-12-28")
-#> Warning in simple_date("2025-12-28"): `simple_date()` only accepts `Date` formate.
-#>   Do you mean `simple_adte(as.Date('2025-12-28'))`?
+#> [1] "251228"
 
 # useful when generating filenames
 str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
-#> ./this_is_the_filename_with_creating_date_230418.R
+#> ./this_is_the_filename_with_creating_date_230419.R
 ```
 
 ### `convert_amount()`
@@ -247,81 +249,13 @@ A Yifan LIU-defined ggplot theme, already applied into my publications.
 
 ``` r
 ggplot() + 
-  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = st_union(geometry))) +
+  geom_sf(data = cnmap_provinces) +
   geom_sf(data = cnmap_9dx, linewidth = 1) +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs) +
   scale_x_continuous(name = "Longitude") +
   scale_y_continuous(name =  "Latitude") +
   Evantheme()
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
-#> although coordinates are longitude/latitude, st_union assumes that they are
-#> planar
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />

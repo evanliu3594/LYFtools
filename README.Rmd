@@ -69,8 +69,11 @@ Far-sea islands and south China sea boundary.
 library(sf)
 sf_use_s2(F)
 
+cnmap_provinces <- cnmap_counties %>% group_by(Code_Province) %>% 
+  summarise(geometry = st_union(geometry))
+
 ggplot() + 
-  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = st_union(geometry))) +
+  geom_sf(data = cnmap_provinces) +
   geom_sf(data = cnmap_9dx, linewidth = 1) +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs)
@@ -131,7 +134,7 @@ A Yifan LIU-defined ggplot theme, already applied into my publications.
 
 ```{r}
 ggplot() + 
-  geom_sf(data = cnmap_counties %>% group_by(Code_Province) %>% summarise(geometry = st_union(geometry))) +
+  geom_sf(data = cnmap_provinces) +
   geom_sf(data = cnmap_9dx, linewidth = 1) +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs) +
