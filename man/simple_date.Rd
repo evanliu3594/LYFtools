@@ -2,7 +2,7 @@
 % Please edit documentation in R/Calculate.R
 \name{simple_date}
 \alias{simple_date}
-\title{get a simple date for document naming}
+\title{Get a simple date for document naming}
 \usage{
 simple_date(x = NULL)
 }
@@ -13,7 +13,7 @@ simple_date(x = NULL)
 A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the date.
 }
 \description{
-get a simple date for document naming
+Get a simple date for document naming
 }
 \examples{
 simple_date()

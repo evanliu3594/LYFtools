@@ -1,4 +1,4 @@
-#' get a simple date for document naming
+#' Get a simple date for document naming
 #'
 #' @param x `NULL` or a `Date`, if NULL, returns the present date.
 #'
@@ -19,7 +19,7 @@ simple_date <- function(x = NULL) {
 
 
 
-#' get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
+#' Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
 #'
 #' @param x the sf/sfc object
 #' @param precise the precise/size of the ideal raster
@@ -54,4 +54,28 @@ larger_bbox <- function(x, precise = 0.25) {
 
   }) |> st_bbox(crs = st_crs(x))
 
+}
+
+
+#' Check if the path exist, if not, create every dir in the path.
+#'
+#' @param path A string of file path that you want to use for save a file.
+#' Note that it must direct to a file not a folder.
+#'
+#' @return the check `path` same as input
+#'
+#' @importFrom purrr reduce
+#' @export
+#'
+#' @examples
+#' dir_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
+dir_validate <- function(path) {
+
+  dir <- path %>% dirname() %>% str_split_1("\\+|/+")
+
+  if_not_exist_then_create <- \(x) {if (!dir.exists(x)) dir.create(x); return(x)}
+
+  reduce(dir, \(d1, d2) if_not_exist_then_create(file.path(d1, d2)))
+
+  return(path)
 }

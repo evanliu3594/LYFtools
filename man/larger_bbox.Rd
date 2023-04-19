@@ -2,7 +2,7 @@
 % Please edit documentation in R/Calculate.R
 \name{larger_bbox}
 \alias{larger_bbox}
-\title{get a more suitable bounding box of a sf/sfc object according to the precising for raster-making}
+\title{Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making}
 \usage{
 larger_bbox(x, precise = 0.25)
 }
@@ -15,7 +15,7 @@ larger_bbox(x, precise = 0.25)
 a sf-bbox object
 }
 \description{
-get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
+Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
 }
 \examples{
 sf::st_bbox(cnmap_simple)
