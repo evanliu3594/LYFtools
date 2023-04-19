@@ -210,9 +210,26 @@ simple_date(as.Date("2023-09-09"))
 simple_date("2025-12-28")
 #> [1] "251228"
 
-# useful when generating filenames
+# useful when generating file names
 str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
 #> ./this_is_the_filename_with_creating_date_230419.R
+```
+
+### `dir_validate()`
+
+`dir_validate()` checks the given file path to see whether it contains
+of any non-existing folder. If yes, this function automatically creates
+these folders to ensure the path is available. Useful when generating a
+file name for saving.
+
+``` r
+writeLines("abc", dir_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.abc"))
+```
+
+see results, run blow code:
+
+``` r
+utils::browseURL("~/THE/FILE/PATH/THAT/YOU/WANT/TO/")
 ```
 
 ### `convert_amount()`
@@ -258,4 +275,4 @@ ggplot() +
   Evantheme()
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
