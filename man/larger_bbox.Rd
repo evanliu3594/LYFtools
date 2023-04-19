@@ -18,6 +18,6 @@ a sf-bbox object
 get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
 }
 \examples{
-sf::st_bbox(mapchina::china)
-larger_bbox(mapchina::china, precise = 0.25)
+sf::st_bbox(cnmap_simple)
+larger_bbox(cnmap_simple, precise = 0.25)
 }

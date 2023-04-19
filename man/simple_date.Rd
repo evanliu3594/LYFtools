@@ -7,10 +7,10 @@
 simple_date(x = NULL)
 }
 \arguments{
-\item{x}{`NULL` or a `Date` format num, if NULL, returns the present date.}
+\item{x}{`NULL` or a `Date`, if NULL, returns the present date.}
 }
 \value{
-6-charactor long numbers first 2 is the year; middle 2 is the month; last 2 is the date.
+A 6-numbers long string, first 2 is the year; middle 2 is the month; last 2 is the date.
 }
 \description{
 get a simple date for document naming

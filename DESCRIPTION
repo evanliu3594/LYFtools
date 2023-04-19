@@ -2,9 +2,9 @@ Package: LYFtools
 Type: Package
 Title: LYF's usefull functions for common data treatment.
 Version: 0.0.1
-Author: Yifan LIU
-Maintainer: Yifan LIU <yifan.liu@smail.nju.edu.cn>
-Description: Convert geocoding coordinate system, convert between quantifiers, calculate AQI, etc
+Author@R: 
+    person("Yifan", "LIU", , "yifan.liu@smail.nju.edu.cn", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7705-1987"))
 Imports:
     sf,
     zoo,
@@ -21,4 +21,5 @@ RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
 Suggests: 
-    mapchina
+    mapchina,
+    tidyverse

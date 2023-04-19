@@ -1,10 +1,11 @@
 #' get a simple date for document naming
 #'
-#' @param x `NULL` or a `Date` format num, if NULL, returns the present date.
+#' @param x `NULL` or a `Date`, if NULL, returns the present date.
 #'
-#' @return 6-charactor long numbers first 2 is the year; middle 2 is the month; last 2 is the date.
+#' @return A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the date.
 #' @importFrom stringr str_glue
 #' @importFrom lubridate is.Date
+#' @importFrom lubridate as_date
 #' @export
 #'
 #' @examples
@@ -13,10 +14,9 @@
 simple_date <- function(x = NULL) {
   if (is.null(x)) format(Sys.Date(), "%y%m%d")
   else if (is.Date(x)) format(x, "%y%m%d")
-  else if (is.character(x)) warning(str_glue(
-  "`simple_date()` only accepts `Date` formate.\n\\
-  Do you mean `simple_adte(as.Date(\'{x}\'))`?"))
+  else if (is.character(x)) format(as_date(x), "%y%m%d")
 }
+
 
 
 #' get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
