@@ -70,7 +70,7 @@ larger_bbox <- function(x, precise = 0.25) {
 #' force_path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
 force_path_validate <- function(path) {
 
-  dir <- path %>% dirname() %>% str_split_1("\\+|/+")
+  dir <- strsplit(dirname(path), "\\+|/+") |> unlist()
 
   if_not_exist_then_create <- \(x) {if (!dir.exists(x)) dir.create(x); return(x)}
 
