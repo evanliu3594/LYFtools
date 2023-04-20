@@ -10,7 +10,7 @@ simple_date(x = NULL)
 \item{x}{`NULL` or a `Date`, if NULL, returns the present date.}
 }
 \value{
-A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the date.
+A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the day.
 }
 \description{
 Get a simple date for document naming

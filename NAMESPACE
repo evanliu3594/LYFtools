@@ -3,7 +3,7 @@
 export(Evantheme)
 export(convert_amount)
 export(convert_coord)
-export(dir_validate)
+export(force_path_validate)
 export(larger_bbox)
 export(simple_date)
 importFrom(dplyr,if_else)

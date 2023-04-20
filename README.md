@@ -204,7 +204,7 @@ larger_bbox(cnmap_counties, precise = 10) %>%
 
 ``` r
 simple_date()
-#> [1] "230419"
+#> [1] "230420"
 simple_date(as.Date("2023-09-09"))
 #> [1] "230909"
 simple_date("2025-12-28")
@@ -212,18 +212,18 @@ simple_date("2025-12-28")
 
 # useful when generating file names
 str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
-#> ./this_is_the_filename_with_creating_date_230419.R
+#> ./this_is_the_filename_with_creating_date_230420.R
 ```
 
-### `dir_validate()`
+### `force_path_validate()`
 
-`dir_validate()` checks the given file path to see whether it contains
-any non-existing folder. If yes, this function automatically creates the
-folder(s) to ensure the path is available. Useful when generating a file
-name for saving.
+`force_path_validate()` checks the given file path to see whether it
+contains any non-existing folder. If yes, this function automatically
+creates the folder(s) to ensure the path is available. Useful when
+generating a file name for saving.
 
 ``` r
-writeLines("abc", dir_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.abc"))
+writeLines("abc", force_path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.abc"))
 ```
 
 see results, run blow code:
@@ -270,7 +270,7 @@ ggplot() +
   geom_sf(data = cnmap_islands) +
   coord_sf(crs = cncrs) +
   scale_x_continuous(name = "Longitude") +
-  scale_y_continuous(name =  "Latitude") +
+  scale_y_continuous(name = "Latitude") +
   Evantheme()
 ```
 

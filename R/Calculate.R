@@ -2,7 +2,7 @@
 #'
 #' @param x `NULL` or a `Date`, if NULL, returns the present date.
 #'
-#' @return A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the date.
+#' @return A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the day.
 #' @importFrom stringr str_glue
 #' @importFrom lubridate is.Date
 #' @importFrom lubridate as_date
@@ -62,13 +62,13 @@ larger_bbox <- function(x, precise = 0.25) {
 #' @param path A string of file path that you want to use for save a file.
 #' Note that it must direct to a file not a folder.
 #'
-#' @return the check `path` same as input
+#' @return the checked `path` same as input
 #'
 #' @export
 #'
 #' @examples
-#' dir_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
-dir_validate <- function(path) {
+#' force_path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
+force_path_validate <- function(path) {
 
   dir <- path %>% dirname() %>% str_split_1("\\+|/+")
 
