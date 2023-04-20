@@ -215,15 +215,16 @@ str_glue("./this_is_the_filename_with_creating_date_{simple_date()}.R")
 #> ./this_is_the_filename_with_creating_date_230420.R
 ```
 
-### `force_path_validate()`
+### `path_validate()`
 
-`force_path_validate()` checks the given file path to see whether it
-contains any non-existing folder. If yes, this function automatically
-creates the folder(s) to ensure the path is available. Useful when
-generating a file name for saving.
+`path_validate()` checks the given file path to see whether it contains
+any non-existing folder. If yes, this function automatically creates the
+folder(s) to ensure the path is available. Useful when generating a file
+name for saving.
 
 ``` r
-writeLines("abc", force_path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.abc"))
+writeLines("abc", path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.abc","force"))
+#> Creating folder(s) for you...
 ```
 
 see results, run blow code:

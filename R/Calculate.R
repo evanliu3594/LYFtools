@@ -32,8 +32,8 @@ simple_date <- function(x = NULL) {
 #' @export
 #'
 #' @examples
-#' sf::st_bbox(cnmap_simple)
-#' larger_bbox(cnmap_simple, precise = 0.25)
+#' sf::st_bbox(cnmap_simplified)
+#' larger_bbox(cnmap_simplified, precise = 0.25)
 larger_bbox <- function(x, precise = 0.25) {
 
   bbox <- st_bbox(x)
@@ -61,20 +61,37 @@ larger_bbox <- function(x, precise = 0.25) {
 #'
 #' @param path A string of file path that you want to use for save a file.
 #' Note that it must direct to a file not a folder.
+#' @param mode Mode option. now support "force" and "manual" by default.
+#' For "force" mode, the function will directly creating folder(s) to active the path.
+#' For "manual" mode, the function will ask you whether you want to create folders or not.
 #'
 #' @return the checked `path` same as input
 #'
 #' @export
 #'
 #' @examples
-#' force_path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
-force_path_validate <- function(path) {
-
-  dir <- strsplit(dirname(path), "\\+|/+") |> unlist()
+#' path_validate("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
+path_validate <- function(path, mode = "manual") {
 
   if_not_exist_then_create <- \(x) {if (!dir.exists(x)) dir.create(x); return(x)}
 
-  Reduce(\(d1, d2) if_not_exist_then_create(file.path(d1, d2)), dir)
+  V <- if (mode == "manual" & !dir.exists(dirname(path))) {
+    readline(prompt = "The path seems unavailable, do you wish to create folder(s) to activate it? [y/n]")
+  }
+
+  V <- ifelse(is.null(V), "", V)
+
+  if (mode == "force" | V %in% c("Y", "y")) {
+    cat("Creating folder(s) for you...\n")
+
+    dir <- strsplit(dirname(path), "\\+|/+") |> unlist()
+
+    Reduce(\(d1, d2) if_not_exist_then_create(file.path(d1, d2)), dir)
+
+  } else {
+    cat("Quit creating folders.\n")
+  }
 
   return(path)
+
 }
