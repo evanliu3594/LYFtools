@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The `LYFtools` package is a collection of some of my frequently used functions for easy use.
+The `LYFtools` package is a collection of some of my frequently used functions for easyuse.
 
 # Installation
 

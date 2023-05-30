@@ -95,3 +95,27 @@ path_validate <- function(path, mode = "manual") {
   return(path)
 
 }
+
+#' Get filename from a path,
+#'
+#' @param path Path to a file (Attention: NOT A DIR). String of file path.
+#' @param ftype Character, string of file extension, default `R` for Rscript file
+#' @param no_abbr Boolean, control option for out put file name: should file extension be included, by default TRUE, represents not including.
+#'
+#' @importFrom stringr str_glue
+#' @importFrom stringr str_extract
+#'
+#' @return a string of file name without file extension abbr.
+#' @export
+#'
+#' @examples
+#' writeLines("","test.R")
+#' get_fname("./test.R")
+#' unlink("test.R")
+get_fname <- function(path, ftype = "R", no_abbr = T) {
+  regexp <- str_glue("(?<=/)[^/]+(?=\\.{ftype})")
+  fname <- str_extract(path, regexp)
+  if (!no_abbr) fname <- str_glue("{fname}.{ftype}")
+  return(fname)
+}
+

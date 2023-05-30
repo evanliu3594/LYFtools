@@ -1,7 +1,7 @@
 Package: LYFtools
 Type: Package
 Title: LYF's toolbox
-Description: LYF defined usefull functions for common data treatment.
+Description: LYF-defined usefull functions for coding.
 Version: 0.1.0
 Author@R: 
     person(given = "Yifan",
