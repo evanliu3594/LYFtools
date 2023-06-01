@@ -99,8 +99,7 @@ path_validate <- function(path, mode = "manual") {
 #' Get filename from a path,
 #'
 #' @param path Path to a file (Attention: NOT A DIR). String of file path.
-#' @param ftype Character, string of file extension, default `R` for Rscript file
-#' @param no_abbr Boolean, control option for out put file name: should file extension be included, by default TRUE, represents not including.
+#' @param keep.ext Boolean, should the file extension be included. By default not include.
 #'
 #' @importFrom stringr str_glue
 #' @importFrom stringr str_extract
@@ -112,10 +111,10 @@ path_validate <- function(path, mode = "manual") {
 #' writeLines("","test.R")
 #' get_fname("./test.R")
 #' unlink("test.R")
-get_fname <- function(path, ftype = "R", no_abbr = T) {
-  regexp <- str_glue("(?<=/)[^/]+(?=\\.{ftype})")
-  fname <- str_extract(path, regexp)
-  if (!no_abbr) fname <- str_glue("{fname}.{ftype}")
-  return(fname)
+#' # run in Rstudio script panel:
+#' rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = T)
+get_fname <- function(path, keep.ext = F) {
+  regexp <- if (keep.ext) "(?<=/)[^/]+$" else "(?<=/)[^/]+(?=\\.[^\\.]*$)"
+  return(str_extract(path, regexp))
 }
 

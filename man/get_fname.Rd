@@ -4,14 +4,12 @@
 \alias{get_fname}
 \title{Get filename from a path,}
 \usage{
-get_fname(path, ftype = "R", no_abbr = T)
+get_fname(path, keep.ext = F)
 }
 \arguments{
 \item{path}{Path to a file (Attention: NOT A DIR). String of file path.}
 
-\item{ftype}{Character, string of file extension, default `R` for Rscript file}
-
-\item{no_abbr}{Boolean, control option for out put file name: should file extension be included, by default TRUE, represents not including.}
+\item{keep.ext}{Boolean, should the file extension be included. By default not include.}
 }
 \value{
 a string of file name without file extension abbr.
@@ -23,4 +21,6 @@ Get filename from a path,
 writeLines("","test.R")
 get_fname("./test.R")
 unlink("test.R")
+# run in Rstudio script panel:
+rstudioapi::getActiveDocumentContext()$path |> get_fname()
 }
