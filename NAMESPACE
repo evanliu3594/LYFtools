@@ -3,6 +3,7 @@
 export(Evantheme)
 export(convert_amount)
 export(convert_coord)
+export(ffmpeg_video.compress)
 export(get_fname)
 export(larger_bbox)
 export(path_validate)

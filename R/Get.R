@@ -82,7 +82,7 @@ path_validate <- function(path, mode = "manual") {
   V <- ifelse(is.null(V), "", V)
 
   if (mode == "force" | V %in% c("Y", "y")) {
-    cat("Creating folder(s) for you...\n")
+    cat("Creating folder(s) ...\n")
 
     dir <- strsplit(dirname(path), "\\+|/+") |> unlist()
 
@@ -117,4 +117,5 @@ get_fname <- function(path, keep.ext = F) {
   regexp <- if (keep.ext) "(?<=/)[^/]+$" else "(?<=/)[^/]+(?=\\.[^\\.]*$)"
   return(str_extract(path, regexp))
 }
+
 
