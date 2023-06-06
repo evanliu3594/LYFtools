@@ -112,7 +112,9 @@ path_validate <- function(path, mode = "manual") {
 #' get_fname("./test.R")
 #' unlink("test.R")
 #' # run in Rstudio script panel:
-#' rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = T)
+#' \dontrun{
+#'  rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = TRUE)
+#'}
 get_fname <- function(path, keep.ext = F) {
   regexp <- if (keep.ext) "(?<=/)[^/]+$" else "(?<=/)[^/]+(?=\\.[^\\.]*$)"
   return(str_extract(path, regexp))

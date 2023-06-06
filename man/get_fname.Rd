@@ -22,5 +22,7 @@ writeLines("","test.R")
 get_fname("./test.R")
 unlink("test.R")
 # run in Rstudio script panel:
-rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = T)
+\dontrun{
+ rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = TRUE)
+}
 }
