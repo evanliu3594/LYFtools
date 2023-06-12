@@ -6,20 +6,25 @@
 \usage{
 ffmpeg_video.compress(
   video,
-  resolution = 720,
-  bit_rate = 2000,
-  encoder = "hevc_nvenc",
+  res = NULL,
+  bv = NULL,
+  force_format = NULL,
+  cv = "hevc_nvenc",
   extra = ""
 )
 }
 \arguments{
 \item{video}{video path, full path.}
 
-\item{resolution}{portrait video picture size, i.e., 480, 720, 1080, 1440, 2160.}
+\item{res}{resolution, numeric. especially portrait video picture size, i.e., 480, 720, 1080, 1440, 2160.
+By default NULL for not changing bit rate.}
 
-\item{bit_rate}{bit rate, unit:k.}
+\item{bv}{video bit rate, unit: kb. By default NULL for not changing bit rate.}
 
-\item{encoder}{video encoder, by default `hevc_nvenc` for nvidia GPU. alternative `hevc_amf` for AMD GPU. `libx264` for CPU encoding only.}
+\item{force_format}{Output file format, chr. By default NULL for keeping file format as input file.}
+
+\item{cv}{video encoder, by default `hevc_nvenc` for nvidia GPU hwa. alternative `hevc_amf` for AMD GPU hwa.
+`libx264` for CPU encoding only.}
 
 \item{extra}{extra option pass to ffmpeg.}
 }
