@@ -18,6 +18,25 @@ simple_date <- function(x = NULL) {
 }
 
 
+#' Split dataframe into list of dataframes based on selection.
+#'
+#' @param .data A `data.frame`, either a `tibble` or a `data.frame` is okay.
+#' @param ... `<tidy-select>` syntax for picking out column(s) to split.
+#' @param keep A Boolean value to decide whether the column should kept in the splited data.frame.
+#'
+#' @return A named-list consists of pieces of `data.frame`s.
+#' @import dplyr
+#' @importFrom tidyr unite
+#' @export
+#'
+#' @examples
+#' CO2 |> split_by(Plant,Type)
+split_by <- function(.data, ..., keep = F) {
+  name_str <- .data |> select(...) |> unite("new_col", sep = "_") |>
+    pull(new_col) |> unique() |> sort()
+  splitted <- .data |> group_split(..., .keep = keep) |> set_names(name_str)
+  return(splitted)
+}
 
 #' Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
 #'

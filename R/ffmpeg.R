@@ -10,7 +10,6 @@
 #' @param extra extra option pass to ffmpeg.
 #'
 #' @importFrom stringr str_extract
-#' @importFrom jsonlite fromJSON
 #'
 #' @return status for compile.
 #' @export
@@ -20,29 +19,30 @@
 ffmpeg_video.compress <- function(video, res = NULL, bv = NULL, force_format = NULL, cv = "hevc_nvenc", extra = "") {
 
   input_res <- str_glue(
-      "ffprobe \"{video}\" -v quiet -select_streams v:0 -show_entries stream=width,height -of json"
-    ) %>% system(intern = T) %>% fromJSON() %>% .$stream %>% c()
+      "ffprobe \"{video}\" -v quiet -select_streams v:0 \\
+      -show_entries stream=width,height -of csv"
+    ) %>% system(intern = T) %>% strsplit(",") %>% .[[1]] %>% tail(-1) %>%
+    as.numeric() %>% setNames(c("width","height")) %>% as.list()
 
-  fnm <- get_fname(video)
+  cmd_res_str <- ifelse(is.null(res), "", str_glue("-vf scale=-1:{res}"))
 
-  dnm <- dirname(video)
-
-  cmd_res_str <- if (is.null(res)) "" else str_glue("-vf scale=-1:{res}")
-
-  cmd_bv_str <- if (is.null(bv)) "" else str_glue("-b:v {bv}k")
+  cmd_bv_str <- ifelse(is.null(bv), "", str_glue("-b:v {bv}k"))
 
   cmd_cv_str <- str_glue("-c:v {cv}")
 
-  fnm_res_str <- if (is.null(res)) {
-    str_glue("[{input_res$width}x{input_res$height}]")
-  } else {
+  dnm <- dirname(video)
+
+  fnm <- get_fname(video)
+
+  fnm_res_str <- ifelse(
+    is.null(res), str_glue("[{input_res$width}x{input_res$height}]"),
     str_glue("[{as.integer(input_res$width * res / input_res$height)}x{res}]")
-  }
+  )
 
-  fnm_bv_str <- if (is.null(bv)) "" else str_glue("[{bv}k]")
+  fnm_bv_str <- ifelse(is.null(bv), "", str_glue("[{bv}k]"))
 
-  fnm_ext <- if (is.null(force_format)) str_extract(video, "(?<=\\.)[^\\.]+$") else force_format
+  fnm_ext <- ifelse(!is.null(force_format), force_format, str_extract(video, "(?<=\\.)[^\\.]+$"))
 
-  str_glue("ffmpeg -i \"{video}\" {cmd_res_str} {cmd_bv_str} {cmd_cv_str} {extra} \\
+  str_glue("ffmpeg -i \"{video}\" \\{cmd_res_str} {cmd_bv_str} {cmd_cv_str} {extra} \\
            \"{dnm}/{fnm}{fnm_res_str}{fnm_bv_str}.{fnm_ext}\"") |> system()
 }
