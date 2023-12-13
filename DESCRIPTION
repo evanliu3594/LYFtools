@@ -2,7 +2,7 @@ Package: LYFtools
 Type: Package
 Title: LYF's toolbox
 Description: LYF's usefull functions for coding.
-Version: 0.1.2
+Version: 0.1.1
 Author: 
     person(given = "Yifan",
            family = "LIU", role = c("aut", "cre"),
