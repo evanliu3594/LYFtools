@@ -1,0 +1,4 @@
+Name: Insert Export (#' @export)
+Description: Inserts ` (#' @export)` at the cursor.
+Binding: inst_export
+Interactive: false

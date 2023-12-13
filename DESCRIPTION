@@ -23,7 +23,8 @@ Imports:
     stringr,
     purrr,
     lubridate,
-    sf
+    sf,
+    rstudioapi
 Suggests: 
     mapchina,
     tidyverse
