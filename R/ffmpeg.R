@@ -9,7 +9,7 @@
 #' @param force_format Output file format, chr. By default NULL for keeping file format as input file.
 #' @param extra extra option pass to ffmpeg.
 #'
-#' @importFrom stringr str_extract
+#' @importFrom stringr str_glue
 #'
 #' @return status for compile.
 #' @export

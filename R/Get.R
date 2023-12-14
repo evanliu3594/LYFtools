@@ -3,7 +3,6 @@
 #' @param x `NULL` or a `Date`, if NULL, returns the present date.
 #'
 #' @return A 6-number long string, first 2 is the year; middle 2 is the month; last 2 is the day.
-#' @importFrom stringr str_glue
 #' @importFrom lubridate is.Date
 #' @importFrom lubridate as_date
 #' @export
@@ -43,8 +42,7 @@ split_by <- function(.data, ..., keep = F) {
 #' @param x the sf/sfc object
 #' @param precise the precise/size of the ideal raster
 #'
-#' @return a sf-bbox object
-#' @importFrom stringr str_detect
+#' @return a bounding box object
 #' @importFrom purrr imap_dbl
 #' @importFrom sf st_bbox
 #' @importFrom sf st_crs
@@ -61,17 +59,17 @@ larger_bbox <- function(x, precise = 0.25) {
 
     a <- round(.x, floor(-1 * log10(precise)))
 
-    if (str_detect(.y, "min")) {
+    if (grepl("min", .y)) {
       if (a < .x) while (a < .x - precise) {a <- a + precise}
       else if (a > .x) while (a > .x) {a <- a - precise}
-    } else if (str_detect(.y, "max")) {
+    } else if (grepl("max", .y)) {
       if (a < .x) while (a < .x) {a <- a + precise}
       else if (a > .x) while (a > .x + precise) {a <- a - precise}
     }
 
     return(a)
 
-  }) |> st_bbox(crs = st_crs(x))
+  }) |> st_bbox()
 
 }
 
@@ -115,15 +113,14 @@ path_validate <- function(path, mode = "manual") {
 
 }
 
-#' Get filename from a path,
+#' Get file name from a path, without file ext or with modified file ext.
 #'
 #' @param path Path to a file (Attention: NOT A DIR). String of file path.
-#' @param keep.ext Boolean, should the file extension be included. By default not include.
+#' @param new.ext String, for the designated file extension.
+#' By default `""` represent not changing anything. If any string was provided, the returned
+#' file name will be attached with the new file extension.
 #'
-#' @importFrom stringr str_glue
-#' @importFrom stringr str_extract
-#'
-#' @return a string of file name without file extension abbr.
+#' @return String, file name without file ext, or with modified file ext.
 #' @export
 #'
 #' @examples
@@ -134,9 +131,23 @@ path_validate <- function(path, mode = "manual") {
 #' \dontrun{
 #'  rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = TRUE)
 #'}
-get_fname <- function(path, keep.ext = F) {
-  regexp <- if (keep.ext) "(?<=/)[^/]+$" else "(?<=/)[^/]+(?=\\.[^\\.]*$)"
-  return(str_extract(path, regexp))
+get_fname <- function(path, new.ext = "") {
+
+  str_exct <- function(string, pattern) {
+    regmatches(string, gregexpr(pattern, string, perl = T))[[1]][1]
+  }
+
+  if (!grepl("\\.",basename(path)) & new.ext == "") {
+    return(basename(path))
+  } else if (!grepl("\\.",basename(path)) & new.ext != "") {
+    return(paste0(basename(path), ".", new.ext))
+  } else if (grepl("\\.",basename(path)) & new.ext == "") {
+    return(str_exct(basename(path),".*(?=\\.)"))
+  } else {
+    return(paste0(
+      str_exct(basename(path),".*(?=\\.)"),".", new.ext
+    ))
+  }
 }
 
 

@@ -12,7 +12,7 @@ larger_bbox(x, precise = 0.25)
 \item{precise}{the precise/size of the ideal raster}
 }
 \value{
-a sf-bbox object
+a bounding box object
 }
 \description{
 Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making

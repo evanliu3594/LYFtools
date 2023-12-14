@@ -2,20 +2,22 @@
 % Please edit documentation in R/Get.R
 \name{get_fname}
 \alias{get_fname}
-\title{Get filename from a path,}
+\title{Get file name from a path, without file ext or with modified file ext.}
 \usage{
-get_fname(path, keep.ext = F)
+get_fname(path, new.ext = "")
 }
 \arguments{
 \item{path}{Path to a file (Attention: NOT A DIR). String of file path.}
 
-\item{keep.ext}{Boolean, should the file extension be included. By default not include.}
+\item{new.ext}{String, for the designated file extension.
+By default `""` represent not changing anything. If any string was provided, the returned
+file name will be attached with the new file extension.}
 }
 \value{
-a string of file name without file extension abbr.
+String, file name without file ext, or with modified file ext.
 }
 \description{
-Get filename from a path,
+Get file name from a path, without file ext or with modified file ext.
 }
 \examples{
 writeLines("","test.R")
