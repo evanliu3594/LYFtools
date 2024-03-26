@@ -94,40 +94,28 @@ mk_path <- function(path) {
 
 }
 
-#' Get file name from a path, without file ext or with modified file ext.
+#' Get file extension.
 #'
-#' @param path Path to a file (Attention: NOT A DIR). String of file path.
-#' @param new.ext String, for the designated file extension.
-#' By default `""` represent not changing anything. If any string was provided, the returned
-#' file name will be attached with the new file extension.
+#' @param fname file name/path.
 #'
-#' @return String, file name without file ext, or with modified file ext.
+#' @return file ext, or 0 length character if no extension detected.
 #' @export
 #'
 #' @examples
 #' writeLines("","test.R")
-#' get_fname("./test.R")
+#' get_ext("./test.R")
 #' unlink("test.R")
 #' # run in Rstudio script panel:
 #' \dontrun{
 #'  rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = TRUE)
 #'}
-get_fname <- function(path, new.ext = "") {
+get_ext <- function(fname) {
 
-  str_exct <- function(string, pattern) {
-    regmatches(string, gregexpr(pattern, string, perl = T))[[1]][1]
-  }
-
-  if (!grepl("\\.",basename(path)) & new.ext == "") {
-    return(basename(path))
-  } else if (!grepl("\\.",basename(path)) & new.ext != "") {
-    return(paste0(basename(path), ".", new.ext))
-  } else if (grepl("\\.",basename(path)) & new.ext == "") {
-    return(str_exct(basename(path),".*(?=\\.)"))
+  if (grepl("\\.", fname)) {
+    return(regmatches(fname, gregexpr("(?<=\\.)[^\\.]+", fname, perl = T))[[1]][1])
   } else {
-    return(paste0(
-      str_exct(basename(path),".*(?=\\.)"),".", new.ext
-    ))
+    cat("No validate file extension detected.")
+    return("")
   }
 }
 
