@@ -9,9 +9,7 @@
 #' mkdir("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
 mkdir <- function(path) {
 
-  if (!dir.exists(real_path)) {
-    dir.create(real_path, recursive = T)
-  }
+  if (!dir.exists(path)) dir.create(path, recursive = T)
 
   return(real_path)
 

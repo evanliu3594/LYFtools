@@ -73,27 +73,6 @@ larger_bbox <- function(x, precise = 0.25) {
 
 }
 
-
-#' Check if the path exist, if not, create every dir in the path.
-#'
-#' @param path A string of file path that you want to use for save a file.
-#' Note that it must direct to a file not a folder.
-#' @return the checked `path` same as input
-#'
-#' @export
-#'
-#' @examples
-#' mk_path("~/THE/FILE/PATH/THAT/YOU/WANT/TO/TEST.TXT")
-mk_path <- function(path) {
-
-  if (!dir.exists(dirname(path))) {
-    dir.create(dirname(path), recursive = T)
-  }
-
-  return(path)
-
-}
-
 #' Get file extension.
 #'
 #' @param fname file name/path.
@@ -112,7 +91,7 @@ mk_path <- function(path) {
 get_ext <- function(fname) {
 
   if (grepl("\\.", fname)) {
-    return(regmatches(fname, gregexpr("(?<=\\.)[^\\.]+", fname, perl = T))[[1]][1])
+    return(regmatches(fname, gregexpr("(?<=\\.)[^\\.]+$", fname, perl = T))[[1]][1])
   } else {
     cat("No validate file extension detected.")
     return("")
