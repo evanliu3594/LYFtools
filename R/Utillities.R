@@ -11,7 +11,7 @@ mkdir <- function(path) {
 
   if (!dir.exists(path)) dir.create(path, recursive = T)
 
-  return(past("dir. path validated:", path))
+  return(paste("dir. path validated:", path))
 
 }
 
