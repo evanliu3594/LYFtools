@@ -20,7 +20,7 @@ get_grayscale("red")
 
 get_grayscale(c("red", "yellow", "green"))
 
-\donotrun{
+\dontrun{
   library(tidyverse)
   df1 <- matrix(colors()[1:120], ncol = 6) \%>\%  as.data.frame() \%>\% rownames_to_column("Row") \%>\%
     pivot_longer(cols = -1, names_to = "Col", names_prefix = "V") \%>\%
