@@ -3,6 +3,7 @@
 export(convert_amount)
 export(convert_coord)
 export(get_ext)
+export(get_grayscale)
 export(larger_bbox)
 export(mkdir)
 export(simple_date)
