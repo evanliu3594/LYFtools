@@ -32,7 +32,10 @@ mkdir <- function(path) {
 #' @export
 #'
 #' @examples
-#' ffmpeg_video.compress("path/to/your/video")
+#' \dontrun{
+#'   video.compress("path/to/your/video")
+#' }
+#'
 video.compress <- function(video, res = NULL, bv = NULL, force_format = NULL, cv = "hevc_nvenc", extra = "") {
 
   input_res <- str_glue(
@@ -64,3 +67,56 @@ video.compress <- function(video, res = NULL, bv = NULL, force_format = NULL, cv
            \"{dnm}/{fnm}{fnm_res_str}{fnm_bv_str}.{fnm_ext}\"") |> system()
 }
 
+
+#' Title JOIN by LLMs
+#' Generate prompt to do fuzzy join with LLMs. By far(2025/04/10), DeepSeek R1 showed the best result,
+#' other LLMs might fabricate non-existing data in the result.
+#' @param tb1 `data.frame`, left data.frame
+#' @param tb2 `data.frame`, right data.frame
+#' @param key1 key column in the left data.frame
+#' @param key2 key column in the right data.frame
+#'
+#' @returns prompt that used to tell the LLMs
+#' @importFrom stringr str_glue
+#' @importFrom tidyr unite
+#' @export
+#'
+#' @examples#' # run in Rstudio script panel:
+#' \dontrun{
+#'   library(ggplot2)
+#'   library(maps)
+#'   world <- map_data("world")
+#'   df <- LifeCycleSavings
+#'   df["country"] = rownames(df)
+#'   llm_join(world, df, "region","country")
+#' }
+llm_join <- function(tb1, tb2, key1, key2) {
+
+  tbl_to_md <- function(tbl) {
+    header <- paste(names(tbl), collapse = " | ")
+    header <- paste0("| ", header, " |")
+    rule <- paste(rep("---", length(names(tbl))), collapse = " | ")
+    rule <- paste0("| ", rule, " |")
+    content <- unite(tbl, "newcol", everything(), sep = " | ") %>% unlist()
+    content <- paste0("| ", content, " |")
+
+    paste0(header, "\n", rule, "\n", paste(content, collapse = "\n")) %>% return()
+  }
+
+  str_glue(
+    "You'll performe a SQL-like JOIN operation for the two provided tables based on \\
+    \"{key1}\" column in first table and  \"{key2}\" column in second table.\n\\
+    Note that the two columns may not be exact matches or may even in different languages.\n\\
+    I COMMAND you matching carefully by the most accurate possible,
+    left any unmatched entries be blank,
+    and NEVER generate any data that does not exist in the original tables.\n
+    The final output must be in CSV format.\n
+    Repeat, NEVER generate ANY data that not exist in the tables provided,
+    otherwise someone could get hurt for that.
+    \n\n
+    {tbl_to_md(tb1)}\\
+    \n\n
+    {tbl_to_md(tb2)}"
+  ) %>% return()
+
+}

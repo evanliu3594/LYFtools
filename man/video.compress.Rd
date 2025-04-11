@@ -35,5 +35,8 @@ status for compile.
 Call ffmpeg in shell to compress video
 }
 \examples{
-ffmpeg_video.compress("path/to/your/video")
+\dontrun{
+  video.compress("path/to/your/video")
+}
+
 }

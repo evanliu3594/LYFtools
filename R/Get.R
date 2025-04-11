@@ -24,16 +24,16 @@ simple_date <- function(x = NULL) {
 #' @param keep A Boolean value to decide whether the column should kept in the splited data.frame.
 #'
 #' @return A named-list consists of pieces of `data.frame`s.
-#' @import dplyr
-#' @importFrom tidyr unite
+#'
+#' @importFrom dplyr group_by
+#' @importFrom tidyr unite nest
+#' @importFrom tibble deframe
 #' @export
 #'
 #' @examples
 #' CO2 |> split_by(Plant,Type)
 split_by <- function(.data, ..., keep = F) {
-  name_str <- .data |> select(...) |> unite("new_col", sep = "_") |>
-    pull(new_col) |> unique() |> sort()
-  splitted <- .data |> group_split(..., .keep = keep) |> set_names(name_str)
+  splitted <- .data |> group_by(...) |> nest() |> unite("GRP", ...) |> deframe()
   return(splitted)
 }
 
@@ -81,14 +81,14 @@ larger_bbox <- function(x, precise = 0.25) {
 #' @export
 #'
 #' @examples
-#' writeLines("","test.R")
-#' get_ext("./test.R")
-#' unlink("test.R")
 #' # run in Rstudio script panel:
 #' \dontrun{
-#'  rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = TRUE)
-#'}
-get_ext <- function(fname) {
+#'   writeLines("","test.R")
+#'   get_fileext("./test.R")
+#'   unlink("test.R")
+#'   rstudioapi::getActiveDocumentContext()$path |> get_fname(keep.ext = TRUE)
+#' }
+get_fileext <- function(fname) {
 
   if (grepl("\\.", fname)) {
     return(regmatches(fname, gregexpr("(?<=\\.)[^\\.]+$", fname, perl = T))[[1]][1])
@@ -124,7 +124,7 @@ get_ext <- function(fname) {
 #'     theme_void()
 #' }
 get_grayscale <- function(color) {
-  RGB <- t(col2rgb(color))
+  RGB <- t(grDevices::col2rgb(color))
   Gray <- 0.299 * RGB[,"red"] + 0.587 * RGB[,"green"] + 0.114 * RGB[,"blue"]
   return(Gray/255*100)
 }
