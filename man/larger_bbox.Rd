@@ -2,22 +2,27 @@
 % Please edit documentation in R/Get.R
 \name{larger_bbox}
 \alias{larger_bbox}
-\title{Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making}
+\title{Get a more suitable bounding box of a sf/sfc object according to the resolution for raster-making}
 \usage{
-larger_bbox(x, precise = 0.25)
+larger_bbox(x, res = NULL, dx = NULL, dy = NULL)
 }
 \arguments{
 \item{x}{the sf/sfc object}
 
-\item{precise}{the precise/size of the ideal raster}
+\item{res}{the resolution/precise/size of the ideal raster}
+
+\item{dx}{the longitude resolution/precise/size of the ideal raster}
+
+\item{dy}{the latitude resolution/precise/size of the ideal raster}
 }
 \value{
 a bounding box object
 }
 \description{
-Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
+Get a more suitable bounding box of a sf/sfc object according to the resolution for raster-making
 }
 \examples{
 sf::st_bbox(cnmap_simplified)
-larger_bbox(cnmap_simplified, precise = 0.25)
+larger_bbox(cnmap_simplified, res = 2/3)
+larger_bbox(cnmap_simplified, dx = 2.5, dy = 2)
 }

@@ -37,39 +37,61 @@ split_by <- function(.data, ..., keep = F) {
   return(splitted)
 }
 
-#' Get a more suitable bounding box of a sf/sfc object according to the precising for raster-making
+#' Get a more suitable bounding box of a sf/sfc object according to the resolution for raster-making
 #'
 #' @param x the sf/sfc object
-#' @param precise the precise/size of the ideal raster
+#' @param res the resolution/precise/size of the ideal raster
+#' @param dx the longitude resolution/precise/size of the ideal raster
+#' @param dy the latitude resolution/precise/size of the ideal raster
 #'
 #' @return a bounding box object
-#' @importFrom purrr imap_dbl
 #' @importFrom sf st_bbox
 #' @importFrom sf st_crs
 #' @export
 #'
 #' @examples
 #' sf::st_bbox(cnmap_simplified)
-#' larger_bbox(cnmap_simplified, precise = 0.25)
-larger_bbox <- function(x, precise = 0.25) {
+#' larger_bbox(cnmap_simplified)
+#' larger_bbox(cnmap_simplified, res = 2/3)
+#' larger_bbox(cnmap_simplified, dx = 1/12)
+#' larger_bbox(cnmap_simplified, dx = 2.5, dy = 2)
+larger_bbox <- function(x, res = NULL, dx = NULL, dy = NULL) {
 
   bbox <- st_bbox(x)
 
-  bbox |> imap_dbl( ~ {
+  if (all(c(is.null(res), is.null(dx), is.null(dy)))) {
+    warning("No valid res, dx and dy supplied, use `1` as default resolution.")
+    dx <- dy <- 1
+  } else if (all(c(!is.null(res), is.null(dx), is.null(dy)))) {
+    dx <- dy <- res
+  } else if (all(c(is.null(res), xor(is.null(dx), is.null(dy))))) {
+    warning("Only resolution of one dimension supplied, use as both.")
+    dx <- dx %||% dy
+    dy <- dx %||% dy
+  }
 
-    a <- round(.x, floor(-1 * log10(precise)))
+  bbox_new <- c(
+    xmin = floor(bbox[["xmin"]]),
+    xmax = ceiling(bbox[["xmax"]]),
+    ymin = floor(bbox[["ymin"]]),
+    ymax = ceiling(bbox[["ymax"]])
+  )
 
-    if (grepl("min", .y)) {
-      if (a < .x) while (a < .x - precise) {a <- a + precise}
-      else if (a > .x) while (a > .x) {a <- a - precise}
-    } else if (grepl("max", .y)) {
-      if (a < .x) while (a < .x) {a <- a + precise}
-      else if (a > .x) while (a > .x + precise) {a <- a - precise}
-    }
+  cols <- ceiling((bbox_new[["xmax"]] - bbox_new[["xmin"]]) / dx)
+  rows <- ceiling((bbox_new[["ymax"]] - bbox_new[["ymin"]]) / dy)
 
-    return(a)
+  bbox_new[["xmax"]] <- bbox_new[["xmin"]] + cols * dx
+  bbox_new[["ymin"]] <- bbox_new[["ymax"]] - rows * dy
 
-  }) |> st_bbox()
+  while(bbox_new[["xmax"]] < bbox[["xmax"]] | bbox_new[["xmax"]] %% 1 != 0) {
+    bbox_new[["xmax"]] <- bbox_new[["xmax"]] + dx 
+  }
+  
+  while(bbox_new[["ymin"]] > bbox[["ymin"]] | bbox_new[["ymin"]] %% 1 != 0) {
+    bbox_new[["ymin"]] <- bbox_new[["ymin"]] - dy 
+  }
+
+  return(st_bbox(bbox_new, crs = st_crs(x)))
 
 }
 
